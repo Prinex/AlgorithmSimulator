@@ -39,7 +39,9 @@ public:
 	 */
 	SortingAlgorithms(int min, int max, int els, sf::RenderWindow& win);
 
-	/** Sort is a pure virtual method for overriding and param init which is what I described about win param from SortingAlgorithms constructor 
+	/** Sort is a pure virtual method for overriding the Sort method for different implementations 
+	 *  of the sorting algorithms and param init 
+	 *  which is what I described about win param from SortingAlgorithms constructor 
 	 *  @param init - a referenced object to the first initialization of the window object
 	 *  @return back where it was called last time (menu feature / navigating)
 	 */

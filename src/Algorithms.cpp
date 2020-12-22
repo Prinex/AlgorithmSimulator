@@ -28,7 +28,6 @@ SortingAlgorithms::SortingAlgorithms(int min, int max, int els, sf::RenderWindow
 	SortSeq();
 }
 
-
 void SortingAlgorithms::SortSeq()
 {
 	for (unsigned int i = 0; i < sequenceCpy.size(); i++)

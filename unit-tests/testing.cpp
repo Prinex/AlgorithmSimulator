@@ -37,7 +37,7 @@ std::vector<int> fillUpVector(int min, int max, int units)
 
 SCENARIO( "Bubble Sort can be used with an empty or non-empty vector")
 {
-	GIVEN(" An empty vector")
+	GIVEN( "An empty vector")
 	{
 		std::vector<int> seq;
 		
@@ -45,24 +45,45 @@ SCENARIO( "Bubble Sort can be used with an empty or non-empty vector")
 
 		WHEN( "vector is empty")
 		{
-			THEN("nothing happens, returning 0")
+			THEN( "nothing happens, returning 0")
 			{
 				REQUIRE(BubbleSort(seq).size() == seq.size());
 			}
 		}
-		WHEN( "vector is not empty")
+		AND_WHEN( "vector is not empty")
 		{
 			seq = fillUpVector(10, 150, 77);
 			
 			REQUIRE(seq.size() != 0);
 			REQUIRE(seq.size() >= 0);
 
-			THEN("something happens, not returning 0")
+			THEN( "something happens, not returning 0")
 			{
 				REQUIRE(BubbleSort(seq).size() == seq.size());
 				REQUIRE(BubbleSort(seq).size() >= seq.size());
 			}
+		}
+		AND
+	}
+}
 
+SCENARIO( "Sorting with Bubble Sort")
+{
+	GIVEN( "A vector with random values")
+	{
+		std::vector<int> seq = fillUpVector(10, 100, 77);
+		std::vector<int> seqCpy = seq;
+
+		REQUIRE(seq.size() > 0);
+
+		WHEN( "vector is not sorted")
+		{
+			REQUIRE(BubbleSort(seq) != seqCpy);
+		}
+		WHEN("vector has been sorted")
+		{
+			std::sort(seq.begin(), seq.end());
+			REQUIRE(BubbleSort(seq) == seq)
 		}
 	}
 }

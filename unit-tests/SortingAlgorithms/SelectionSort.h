@@ -21,4 +21,3 @@ std::vector<int> SelectionSort(std::vector<int>& sequence)
 	}
 	return sequence;
 }
-

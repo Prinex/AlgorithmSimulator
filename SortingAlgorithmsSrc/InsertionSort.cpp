@@ -11,15 +11,15 @@ int InsertionSort::Sort(std::unique_ptr<Interface>& init)
 	while (window.isOpen())
 	{
 		std::vector<sf::RectangleShape>::iterator iti;
-		// 64 integer size for avoiding overflow
+		// 64 integer size for avoiding overflowing
 		unsigned long long int j;
 		sf::RectangleShape leftmost;
 		float xs, ys, xl, yl;
 		float xs_n, ys_n;
 		for (iti = sequence.begin() + 1; iti != sequence.end(); iti = std::next(iti))
 		{
-			j = std::distance(sequence.begin(), std::prev(iti));
 			leftmost = *iti;
+			j = std::distance(sequence.begin(), std::prev(iti));
 
 			// hoovering effect
 			(*iti).setFillColor(sf::Color::Green);
@@ -37,9 +37,10 @@ int InsertionSort::Sort(std::unique_ptr<Interface>& init)
 				window.clear(sf::Color::White);
 				for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
 				{
-					std::cout << (*itp).getSize().y << '\n';
+					if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
 					window.draw(*itp);
 				}
+				if (IsSorted() != true) std::cout << std::endl;
 				window.display();
 
 

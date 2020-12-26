@@ -13,7 +13,7 @@ SortingAlgorithms::SortingAlgorithms(int min, int max, int els, sf::RenderWindow
 	float randomHeight;
 	float xCurrPos = 8;
 
-	for (unsigned int i = 0; i < els; i++)
+	for (unsigned int i = 0; i != els; i++)
 	{
 		randomHeight = rand() % max + min;
 		sf::RectangleShape unit;
@@ -114,9 +114,11 @@ int SortingAlgorithms::PrintSortedSeq(std::unique_ptr<Interface>& init)
 		window.clear(sf::Color::White);
 		for (std::vector<sf::RectangleShape>::iterator it = sequence.begin(); it != sequence.end(); it = std::next(it))
 		{
+			if (IsSorted() != true) std::cout << (*it).getSize().y << " ";
 			(*it).setFillColor(sf::Color::Green);
 			window.draw(*it);
 		}
+		if (IsSorted() != true) std::cout << std::endl;
 		window.display();
 	}
 	return 0;

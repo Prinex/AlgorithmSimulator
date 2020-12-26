@@ -85,7 +85,7 @@ void Button::Draw(sf::RenderWindow& window)
 // Interface definitions  
 Interface::Interface()
 {
-	if (!font.loadFromFile("/home/holiness/AlgorithmSimulator/design/quicksandBold.otf"))
+	if (!font.loadFromFile("../design/quicksandBold.otf"))
 		std::cerr << "There's no such file" << std::endl;
 
 	hint.setFont(font);
@@ -541,7 +541,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 						if (generateSeq->IsSorted())
 						{
 							std::cerr << "The sequence is already sorted" << std::endl;
-							break;
+							return generateSeq->PrintSortedSeq(init);
 						}
 						return generateSeq->Sort(init);
 					}

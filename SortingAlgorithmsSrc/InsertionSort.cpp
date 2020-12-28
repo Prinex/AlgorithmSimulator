@@ -12,7 +12,7 @@ int InsertionSort::Sort(std::unique_ptr<Interface>& init)
 	{
 		std::vector<sf::RectangleShape>::iterator iti;
 		// 64 integer size for avoiding overflowing
-		unsigned long long int j;
+		long long int j;
 		sf::RectangleShape leftmost;
 		float xs, ys, xl, yl;
 		float xs_n, ys_n;

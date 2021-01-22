@@ -1,68 +1,38 @@
 #pragma once
 
-
-#include <vector>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 
-//	1. SELECT THE PIVOT ELEMENT (LAST, FIRST, MID)
-//	2. Run a while loop which has the conditon of first >= last when the two pointers meet eachother
-//	3. separate the elements that are less than the pivot and elements that are greater or equal to the pivot 
-//  4. if l < pivot (found) and r >= pivot (found) swap l and r
-//  5. if l == r swap this value with the pivot  
-
-void Separate(std::vector<int>& sequence, int first, int last, int& pivot)
+std::vector<int> QuickSort(std::vector<int>& sequence, int left, int right)
 {
-	pivot = (first + last) / 2;
+	int pivot = (left + right) / 2;
+	int l = left;
+	int r = right;
 
-	int left = 0;
-	int right = 0;
-	int l = first;
-	int r = last;
-
-	while (sequence.at(l) != sequence.at(r))
+	while (l <= r)
 	{
-		if (sequence.at(l) >= sequence.at(pivot))
+		while (sequence.at(l) < sequence.at(pivot))
 		{
-			left = l;
+			l++;
 		}
-		else 
+		while (sequence.at(r) > sequence.at(pivot))
 		{
-			++l;
+			r--;
 		}
-		if (sequence.at(r) < sequence.at(pivot))
-		{
-			right = r;
-		}
-		else
-		{
-			--r;
-		}
-		if (sequence.at(l) >= sequence.at(pivot) && sequence.at(r) < sequence.at(pivot))
+		if (l <= r)
 		{
 			std::swap(sequence.at(l), sequence.at(r));
+			if (pivot == l) pivot = r;
+			else if (pivot == r) pivot = l;
+			l++;
+			r--;
 		}
-		if (l == r)
-		{
-			std::swap(sequence.at(l), sequence.at(pivot));
-			pivot = l;
-		}
-
-		
 	}
-}
-
-std::vector<int> QuickSort(std::vector<int>& sequence, int first, int last, int& pivot)
-{
-	if (first < last)
-	{
-		Separate(sequence, first, last, pivot);
-		QuickSort(sequence, first, pivot - 1);
-		QuickSort(sequence, pivot + 1, last);
-	}
-
+	if (left < l)
+		QuickSort(sequence, left, r);
+	if (r < right)
+		QuickSort(sequence, l, right);
 	return sequence;
 }
-
-  

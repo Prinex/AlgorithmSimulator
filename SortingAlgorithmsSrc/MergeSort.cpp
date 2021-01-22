@@ -101,7 +101,7 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
                 if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
                 window.draw(*itp);
             }
-            if (IsSorted() != true) std::cout << std::endl;
+            std::cout << std::endl;
             window.display();
 
             // hoovering effect reset
@@ -133,9 +133,10 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
             window.clear(sf::Color::White);
             for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
             {
-                std::cout << (*itp).getSize().y << '\n';
+                std::cout << (*itp).getSize().y << " ";
                 window.draw(*itp);
             }
+            std::cout << std::endl;
             window.display();
 
             // hoovering effect reset
@@ -167,7 +168,7 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
             window.clear(sf::Color::White);
             for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
             {
-                std::cout << (*itp).getSize().y << '\n';
+                std::cout << (*itp).getSize().y << " ";
                 window.draw(*itp);
             }
             window.display();

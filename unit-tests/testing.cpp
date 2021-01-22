@@ -4,6 +4,7 @@
 #include "SortingAlgorithms/BubbleSort.h"
 #include "SortingAlgorithms/SelectionSort.h"
 #include "SortingAlgorithms/InsertionSort.h"
+#include "SortingAlgorithms/QuickSort.h"
 /*
 #include "SortingAlgorithms/MergeSort.h"
 #include "SortingAlgorithms/QuickSort.h"
@@ -68,7 +69,7 @@ SCENARIO( "Bubble Sort can be used with an empty or non-empty vector")
 
 SCENARIO( "Sorting with Bubble Sort")
 {
-	GIVEN( "A some vectors with random values")
+	GIVEN( "some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-32, 77, 20);
 		std::vector<int> seqCpy;
@@ -133,7 +134,7 @@ SCENARIO( "Selection Sort can be used with an empty or non-empty vector")
 
 SCENARIO( "Sorting with Selection Sort")
 {
-	GIVEN("A some vectors with random values")
+	GIVEN( "some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-25, 47, 32);
 		std::vector<int> seqCpy;
@@ -197,7 +198,7 @@ SCENARIO( "Insertion Sort can be used with an empty or non-empty vector")
 
 SCENARIO( "Sorting with Insertion Sort")
 {
-	GIVEN("A some vectors with random values")
+	GIVEN( "some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-47, 68, 40);
 		std::vector<int> seqCpy;
@@ -261,7 +262,7 @@ SCENARIO( "Merge Sort can be used with an empty or non-empty vector")
 
 SCENARIO( "Sorting with Merge Sort")
 {
-	GIVEN( "A some vectors with random values")
+	GIVEN( "some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-20, 100, 70);
 		std::vector<int> seqCpy;
@@ -287,6 +288,71 @@ SCENARIO( "Sorting with Merge Sort")
 			{
 				REQUIRE(seq.size() == 321);
 				REQUIRE(InsertionSort(seq) == seqCpy);
+			}
+		}
+	}
+}
+
+/////////////// QUICK SORT ///////////////////
+SCENARIO( "Quick Sort can be used with an empty or non-empty vector")
+{
+	GIVEN( "An empty vector")
+	{
+		std::vector<int> seq;
+
+		REQUIRE(seq.size() == 0);
+
+		WHEN( "vector is empty")
+		{
+			THEN( "nothing happens, returning 0")
+			{
+				REQUIRE(QuickSort(seq, 0, seq.size() - 1).size() == 0);
+			}
+		}
+		AND_WHEN( "vector is not empty")
+		{
+			seq = fillUpVector(-35, 375, 32);
+
+			REQUIRE(seq.size() != 0);
+			REQUIRE(seq.size() > 0);
+
+			THEN( "something happens, not returning 0")
+			{
+				REQUIRE(QuickSort(seq, 0, seq.size() - 1).size() != 0);
+				REQUIRE(QuickSort(seq, 0, seq.size() - 1).size() > 0);
+			}
+		}
+	}
+}
+
+SCENARIO( "Sorting with Quick Sort")
+{
+	GIVEN( "A some vectors with random values")
+	{
+		std::vector<int> seq = fillUpVector(-20, 100, 70);
+		std::vector<int> seqCpy;
+
+		REQUIRE(seq.size() == 70);
+
+		WHEN( "sorting a small-sized vector")
+		{
+			seqCpy = seq;
+			std::sort(seqCpy.begin(), seqCpy.end());
+			THEN( "returns the sorted vector")
+			{
+				REQUIRE(QuickSort(seq, 0, seq.size() - 1) == seqCpy);
+			}
+		}
+		AND_WHEN( "sorting a big-sized vector")
+		{
+			seq = fillUpVector(-7, 787, 327);
+			seqCpy = seq;
+			std::sort(seqCpy.begin(), seqCpy.end());
+
+			THEN( "returns the sorted vector")
+			{
+				REQUIRE(seq.size() == 327);
+				REQUIRE(QuickSort(seq, 0, seq.size() - 1) == seqCpy);
 			}
 		}
 	}

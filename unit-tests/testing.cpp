@@ -5,8 +5,8 @@
 #include "SortingAlgorithms/SelectionSort.h"
 #include "SortingAlgorithms/InsertionSort.h"
 #include "SortingAlgorithms/QuickSort.h"
-/*
 #include "SortingAlgorithms/MergeSort.h"
+/*
 #include "SortingAlgorithms/QuickSort.h"
 #include "SortingAlgorithms/HeapSort.h"
 */
@@ -41,27 +41,27 @@ SCENARIO( "Bubble Sort can be used with an empty or non-empty vector")
 	GIVEN( "An empty vector")
 	{
 		std::vector<int> seq;
-		
-		REQUIRE(seq.size() == 0);
+		std::vector<int> sorted;
 
-		WHEN( "vector is empty")
+		WHEN( "the vector is empty")
 		{
-			THEN( "nothing happens, returning 0")
+			THEN( "nothing happens")
 			{
 				REQUIRE(BubbleSort(seq).size() == 0);
 			}
 		}
-		AND_WHEN( "vector is not empty")
+		AND_WHEN( "the vector is not empty")
 		{
 			seq = fillUpVector(10, 150, 77);
 			
 			REQUIRE(seq.size() != 0);
 			REQUIRE(seq.size() > 0);
 
-			THEN( "something happens, not returning 0")
+			THEN( "sorting occurs")
 			{
-				REQUIRE(BubbleSort(seq).size() != 0);
-				REQUIRE(BubbleSort(seq).size() > 0);
+				sorted = BubbleSort(seq);
+				REQUIRE(sorted.size() != 0);
+				REQUIRE(sorted.size() > 0);
 			}
 		}
 	}
@@ -72,9 +72,8 @@ SCENARIO( "Sorting with Bubble Sort")
 	GIVEN( "some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-32, 77, 20);
+		std::vector<int> sorted;
 		std::vector<int> seqCpy;
-
-		REQUIRE(seq.size() == 20);
 
 		WHEN( "sorting a small-sized vector")
 		{
@@ -83,7 +82,10 @@ SCENARIO( "Sorting with Bubble Sort")
 
 			THEN( "returns the sorted vector")
 			{
+				sorted = BubbleSort(seq);
 				REQUIRE(BubbleSort(seq) == seqCpy);
+				REQUIRE(sorted.size() == 20);
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
 		AND_WHEN( "sorting a big-sized vector")
@@ -94,8 +96,10 @@ SCENARIO( "Sorting with Bubble Sort")
 
 			THEN( "returns the sorted vector")
 			{
-				REQUIRE(seq.size() == 100);
-				REQUIRE(BubbleSort(seq) == seqCpy);
+				sorted = BubbleSort(seq);
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(sorted.size() == 100);
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
 	}
@@ -106,27 +110,29 @@ SCENARIO( "Selection Sort can be used with an empty or non-empty vector")
 	GIVEN( "An empty vector")
 	{
 		std::vector<int> seq;
+		std::vector<int> sorted;
 
 		REQUIRE(seq.size() == 0);
 
-		WHEN( "vector is empty")
+		WHEN( "the vector is empty")
 		{
-			THEN( "nothing happens, returning 0")
+			THEN( "nothing happens")
 			{
-				REQUIRE(SelectionSort(seq).size() == seq.size());
+				REQUIRE(SelectionSort(seq).size() == 0);
 			}
 		}
 		AND_WHEN( "vector is not empty")
 		{
-			seq = fillUpVector(10, 150, 77);
+			seq = fillUpVector(50, 123, 78);
 
 			REQUIRE(seq.size() != 0);
 			REQUIRE(seq.size() > 0);
 
-			THEN( "something happens, not returning 0")
+			THEN( "sorting occurs")
 			{
-				REQUIRE(SelectionSort(seq).size() != 0);
-				REQUIRE(SelectionSort(seq).size() > 0);
+				sorted = SelectionSort(seq);
+				REQUIRE(sorted.size() != 0);
+				REQUIRE(sorted.size() > 0);
 			}
 		}
 	}
@@ -136,30 +142,35 @@ SCENARIO( "Sorting with Selection Sort")
 {
 	GIVEN( "some vectors with random values")
 	{
-		std::vector<int> seq = fillUpVector(-25, 47, 32);
+		std::vector<int> seq = fillUpVector(-21, 87, 32);
+		std::vector<int> sorted;
 		std::vector<int> seqCpy;
 
-		REQUIRE(seq.size() == 32);
-
-		WHEN("sorting a small-sized vector")
+		WHEN( "sorting a small-sized vector")
 		{
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
-			THEN("returns the sorted vector")
+
+			THEN( "returns the sorted vector")
 			{
-				REQUIRE(SelectionSort(seq) == seqCpy);
+				sorted = SelectionSort(seq);
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(sorted.size() == 32);
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
-		AND_WHEN("sorting a big-sized vector")
+		AND_WHEN( "sorting a big-sized vector")
 		{
-			seq = fillUpVector(-432, 563, 89);
+			seq = fillUpVector(-378, 877, 250);
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
 
-			THEN("returns the sorted vector")
+			THEN( "returns the sorted vector")
 			{
-				REQUIRE(seq.size() == 89);
-				REQUIRE(SelectionSort(seq) == seqCpy);
+				sorted = SelectionSort(seq);
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(sorted.size() == 250); 
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
 	}
@@ -170,27 +181,27 @@ SCENARIO( "Insertion Sort can be used with an empty or non-empty vector")
 	GIVEN( "An empty vector")
 	{
 		std::vector<int> seq;
+		std::vector<int> sorted;
 
-		REQUIRE(seq.size() == 0);
-
-		WHEN( "vector is empty")
+		WHEN( "the vector is empty")
 		{
-			THEN( "nothing happens, returning 0")
+			THEN( "nothing happens")
 			{
 				REQUIRE(InsertionSort(seq).size() == 0);
 			}
 		}
 		AND_WHEN( "vector is not empty")
 		{
-			seq = fillUpVector(10, 150, 20);
+			seq = fillUpVector(74, 95, 78);
 
 			REQUIRE(seq.size() != 0);
 			REQUIRE(seq.size() > 0);
 
-			THEN( "something happens, not returning 0")
+			THEN( "sorting occurs")
 			{
-				REQUIRE(InsertionSort(seq).size() != 0);
-				REQUIRE(InsertionSort(seq).size() > 0);
+				sorted = InsertionSort(seq);
+				REQUIRE(sorted.size() != 0);
+				REQUIRE(sorted.size() > 0);
 			}
 		}
 	}
@@ -200,30 +211,35 @@ SCENARIO( "Sorting with Insertion Sort")
 {
 	GIVEN( "some vectors with random values")
 	{
-		std::vector<int> seq = fillUpVector(-47, 68, 40);
+		std::vector<int> seq = fillUpVector(-6, 171, 43);
+		std::vector<int> sorted;
 		std::vector<int> seqCpy;
-
-		REQUIRE(seq.size() == 40);
-
-		WHEN("sorting a small-sized vector")
+		 
+		WHEN( "sorting a small-sized vector")
 		{
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
-			THEN("returns the sorted vector")
+
+			THEN( "returns the sorted vector")
 			{
-				REQUIRE(InsertionSort(seq) == seqCpy);
+				sorted = InsertionSort(seq);
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(sorted.size() == 43); 
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
-		AND_WHEN("sorting a big-sized vector")
+		AND_WHEN( "sorting a big-sized vector")
 		{
-			seq = fillUpVector(-4, 789, 252);
+			seq = fillUpVector(-378, 477, 98);
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
 
-			THEN("returns the sorted vector")
+			THEN( "returns the sorted vector")
 			{
-				REQUIRE(seq.size() == 252);
-				REQUIRE(InsertionSort(seq) == seqCpy);
+				sorted = InsertionSort(seq);
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(sorted.size() == 98);
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
 	}
@@ -234,27 +250,28 @@ SCENARIO( "Merge Sort can be used with an empty or non-empty vector")
 	GIVEN( "An empty vector")
 	{
 		std::vector<int> seq;
+		std::vector<int> sorted;
 
-		REQUIRE(seq.size() == 0);
-
-		WHEN( "vector is empty")
+		WHEN( "the vector is empty")
 		{
-			THEN( "nothing happens, returning 0")
+			THEN( "nothing happens")
 			{
-				REQUIRE(InsertionSort(seq).size() == 0);
+				MSort(seq, 0, seq.size() - 1);
+				REQUIRE(seq.size() == 0);
 			}
 		}
 		AND_WHEN( "vector is not empty")
 		{
-			seq = fillUpVector(-20, 220, 25);
+			seq = fillUpVector(74, 95, 78);
 
 			REQUIRE(seq.size() != 0);
 			REQUIRE(seq.size() > 0);
 
-			THEN( "something happens, not returning 0")
+			THEN( "sorting occurs")
 			{
-				REQUIRE(InsertionSort(seq).size() != 0);
-				REQUIRE(InsertionSort(seq).size() > 0);
+				MSort(seq, 0, seq.size() - 1);
+				REQUIRE(seq.size() != 0);
+				REQUIRE(seq.size() > 0);
 			}
 		}
 	}
@@ -264,49 +281,52 @@ SCENARIO( "Sorting with Merge Sort")
 {
 	GIVEN( "some vectors with random values")
 	{
-		std::vector<int> seq = fillUpVector(-20, 100, 70);
+		std::vector<int> seq = fillUpVector(-10, 200, 30);
 		std::vector<int> seqCpy;
-
-		REQUIRE(seq.size() == 70);
 
 		WHEN( "sorting a small-sized vector")
 		{
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
+
 			THEN( "returns the sorted vector")
 			{
-				REQUIRE(InsertionSort(seq) == seqCpy);
+				MSort(seq, 0, seq.size() - 1);
+				REQUIRE(seq == seqCpy);
+				REQUIRE(seq.size() == 30);
+				REQUIRE(seq.size() == seqCpy.size());
 			}
 		}
 		AND_WHEN( "sorting a big-sized vector")
 		{
-			seq = fillUpVector(-4, 777, 321);
+			seq = fillUpVector(-378, 1000, 289);
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
 
 			THEN( "returns the sorted vector")
 			{
-				REQUIRE(seq.size() == 321);
-				REQUIRE(InsertionSort(seq) == seqCpy);
+				MSort(seq, 0, seq.size() - 1);
+				REQUIRE(seq == seqCpy);
+				REQUIRE(seq.size() == 289);
+				REQUIRE(seq.size() == seqCpy.size());
 			}
 		}
 	}
 }
 
-/////////////// QUICK SORT ///////////////////
 SCENARIO( "Quick Sort can be used with an empty or non-empty vector")
 {
 	GIVEN( "An empty vector")
 	{
 		std::vector<int> seq;
-
-		REQUIRE(seq.size() == 0);
+		std::vector<int> sorted;
 
 		WHEN( "vector is empty")
 		{
-			THEN( "nothing happens, returning 0")
+			THEN( "nothing happens")
 			{
-				REQUIRE(QuickSort(seq, 0, seq.size() - 1).size() == 0);
+				MSort(seq, 0, seq.size() - 1);
+				REQUIRE(seq.size() == 0);
 			}
 		}
 		AND_WHEN( "vector is not empty")
@@ -316,10 +336,11 @@ SCENARIO( "Quick Sort can be used with an empty or non-empty vector")
 			REQUIRE(seq.size() != 0);
 			REQUIRE(seq.size() > 0);
 
-			THEN( "something happens, not returning 0")
+			THEN( "sorting happens")
 			{
-				REQUIRE(QuickSort(seq, 0, seq.size() - 1).size() != 0);
-				REQUIRE(QuickSort(seq, 0, seq.size() - 1).size() > 0);
+				sorted = QuickSort(seq, 0, seq.size() - 1);
+				REQUIRE(sorted.size() != 0);
+				REQUIRE(sorted.size() > 0);
 			}
 		}
 	}
@@ -330,17 +351,19 @@ SCENARIO( "Sorting with Quick Sort")
 	GIVEN( "A some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-20, 100, 70);
+		std::vector<int> sorted;
 		std::vector<int> seqCpy;
-
-		REQUIRE(seq.size() == 70);
 
 		WHEN( "sorting a small-sized vector")
 		{
 			seqCpy = seq;
 			std::sort(seqCpy.begin(), seqCpy.end());
+
 			THEN( "returns the sorted vector")
 			{
 				REQUIRE(QuickSort(seq, 0, seq.size() - 1) == seqCpy);
+				REQUIRE(seq.size() == 70);
+				REQUIRE(seq.size() == seqCpy.size());
 			}
 		}
 		AND_WHEN( "sorting a big-sized vector")
@@ -351,8 +374,10 @@ SCENARIO( "Sorting with Quick Sort")
 
 			THEN( "returns the sorted vector")
 			{
-				REQUIRE(seq.size() == 327);
-				REQUIRE(QuickSort(seq, 0, seq.size() - 1) == seqCpy);
+				sorted = QuickSort(seq, 0, seq.size() - 1);
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(seq.size() == 327); 
+				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}
 	}

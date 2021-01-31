@@ -32,8 +32,10 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
     // (i, j) - index for right and left hand side of the vector
     // k - index for the whole sequence
     int i, j, k;
-    // for even and odd numbers
+    // find the size of the left side and right side of the vector
+    // the index indices from before the the mid are lower
     int ls = mid - first + 1;
+    // the index indices from the mid are bigger
     int rs = last - mid;
     // rectangles coordinates 
     int xk, yk;
@@ -48,18 +50,6 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
     for (j = 0; j < rs; j++)
         rightSeq.at(j) = sequence.at(mid + 1 + j);
 
-    // for even and odd numbers
-    ls = mid - first + 1;
-    rs = last - mid;
-
-    leftSeq.resize(ls);
-    rightSeq.resize(rs);
-
-    // separating the sequence
-    for (i = 0; i < ls; i++)
-        leftSeq.at(i) = sequence.at(first + i);
-    for (j = 0; j < rs; j++)
-        rightSeq.at(j) = sequence.at(mid + 1 + j);
 
     i = 0;
     j = 0;

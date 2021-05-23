@@ -283,7 +283,7 @@ int Interface::Init(std::unique_ptr<Interface>& init)
 				case sf::Event::KeyPressed:
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 					{
-						return 0;
+						exit(3);
 					}
 					break;
 				}

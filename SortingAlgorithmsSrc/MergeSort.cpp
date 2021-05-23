@@ -56,124 +56,120 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
     k = first;
 
     // merging
-    while (window.isOpen() && i < ls && j < rs)
+    while (i < ls && j < rs)
     {
-        while (i < ls && j < rs)
+        // updating rectangles coordinates
+        xk = sequence.at(k).getPosition().x;
+        yk = sequence.at(k).getPosition().y;
+
+        if (leftSeq.at(i).getSize().y <= rightSeq.at(j).getSize().y)
         {
-            // updating rectangles coordinates
-            xk = sequence.at(k).getPosition().x;
-            yk = sequence.at(k).getPosition().y;
-
-            if (leftSeq.at(i).getSize().y <= rightSeq.at(j).getSize().y)
-            {
-                // changing rectangles coordinates and elements
-                sequence.at(k) = leftSeq.at(i);
-                sequence.at(k).setPosition(sf::Vector2f(xk, yk));
-                i++;
-            }
-            else
-            {
-                // changing rectangles coordinates and elements
-                sequence.at(k) = rightSeq.at(j);
-                sequence.at(k).setPosition(sf::Vector2f(xk, yk));
-                j++;
-            }
-            // hoovering effect
-            sequence.at(k).setFillColor(sf::Color::Red);
-            sequence.at(first).setFillColor(sf::Color::Green);
-            sequence.at(mid + 1).setFillColor(sf::Color::Blue);
-            sequence.at(last).setFillColor(sf::Color::Green);
-
-            // Printing
-            window.clear(sf::Color::White);
-            for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
-            {
-                if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
-                window.draw(*itp);
-            }
-            std::cout << std::endl;
-            window.display();
-
-            // hoovering effect reset
-            sequence.at(k).setFillColor(sf::Color::Black);
-            sequence.at(first).setFillColor(sf::Color::Black);
-            sequence.at(mid + 1).setFillColor(sf::Color::Black);
-            sequence.at(last).setFillColor(sf::Color::Black);
-
-            k++;
-        }
-        // adding the numbers that are left either from the left or right side of the sequence
-        while (i < ls)
-        {
-            // updating rectangles coordinates only the left part
-            xk = sequence.at(k).getPosition().x;
-            yk = sequence.at(k).getPosition().y;
-
             // changing rectangles coordinates and elements
             sequence.at(k) = leftSeq.at(i);
             sequence.at(k).setPosition(sf::Vector2f(xk, yk));
-
-            // hoovering effect
-            sequence.at(k).setFillColor(sf::Color::Red);
-            sequence.at(first).setFillColor(sf::Color::Green);
-            sequence.at(mid + 1).setFillColor(sf::Color::Blue);
-            sequence.at(last).setFillColor(sf::Color::Green);
-
-            // Printing
-            window.clear(sf::Color::White);
-            for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
-            {
-                std::cout << (*itp).getSize().y << " ";
-                window.draw(*itp);
-            }
-            std::cout << std::endl;
-            window.display();
-
-            // hoovering effect reset
-            sequence.at(k).setFillColor(sf::Color::Black);
-            sequence.at(first).setFillColor(sf::Color::Black);
-            sequence.at(mid + 1).setFillColor(sf::Color::Black);
-            sequence.at(last).setFillColor(sf::Color::Black);
-
             i++;
-            k++;
         }
-        while (j < rs)
+        else
         {
-            // updating rectangles coordinates only the right part
-            xk = sequence.at(k).getPosition().x;
-            yk = sequence.at(k).getPosition().y;
-
             // changing rectangles coordinates and elements
             sequence.at(k) = rightSeq.at(j);
             sequence.at(k).setPosition(sf::Vector2f(xk, yk));
-
-            // hoovering effect
-            sequence.at(k).setFillColor(sf::Color::Red);
-            sequence.at(first).setFillColor(sf::Color::Green);
-            sequence.at(mid + 1).setFillColor(sf::Color::Blue);
-            sequence.at(last).setFillColor(sf::Color::Green);
-
-            // Printing
-            window.clear(sf::Color::White);
-            for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
-            {
-                std::cout << (*itp).getSize().y << " ";
-                window.draw(*itp);
-            }
-            window.display();
-
-            // hoovering effect reset
-            sequence.at(k).setFillColor(sf::Color::Black);
-            sequence.at(first).setFillColor(sf::Color::Black);
-            sequence.at(mid + 1).setFillColor(sf::Color::Black);
-            sequence.at(last).setFillColor(sf::Color::Black);
-
             j++;
-            k++;
         }
-        if (IsSorted())
-            return PrintSortedSeq(init);
+        // hoovering effect
+        sequence.at(k).setFillColor(sf::Color::Red);
+        sequence.at(first).setFillColor(sf::Color::Green);
+        sequence.at(mid + 1).setFillColor(sf::Color::Blue);
+        sequence.at(last).setFillColor(sf::Color::Green);
+
+        // Printing
+        window.clear(sf::Color::White);
+        for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
+        {
+            if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
+            window.draw(*itp);
+        }
+        std::cout << std::endl;
+        window.display();
+
+        // hoovering effect reset
+        sequence.at(k).setFillColor(sf::Color::Black);
+        sequence.at(first).setFillColor(sf::Color::Black);
+        sequence.at(mid + 1).setFillColor(sf::Color::Black);
+        sequence.at(last).setFillColor(sf::Color::Black);
+
+        k++;
     }
-    return 0;
+    // adding the numbers that are left either from the left or right side of the sequence
+    while (i < ls)
+    {
+        // updating rectangles coordinates only the left part
+        xk = sequence.at(k).getPosition().x;
+        yk = sequence.at(k).getPosition().y;
+
+        // changing rectangles coordinates and elements
+        sequence.at(k) = leftSeq.at(i);
+        sequence.at(k).setPosition(sf::Vector2f(xk, yk));
+
+        // hoovering effect
+        sequence.at(k).setFillColor(sf::Color::Red);
+        sequence.at(first).setFillColor(sf::Color::Green);
+        sequence.at(mid + 1).setFillColor(sf::Color::Blue);
+        sequence.at(last).setFillColor(sf::Color::Green);
+
+        // Printing
+        window.clear(sf::Color::White);
+        for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
+        {
+            std::cout << (*itp).getSize().y << " ";
+            window.draw(*itp);
+        }
+        std::cout << std::endl;
+        window.display();
+
+        // hoovering effect reset
+        sequence.at(k).setFillColor(sf::Color::Black);
+        sequence.at(first).setFillColor(sf::Color::Black);
+        sequence.at(mid + 1).setFillColor(sf::Color::Black);
+        sequence.at(last).setFillColor(sf::Color::Black);
+
+        i++;
+        k++;
+    }
+    while (j < rs)
+    {
+        // updating rectangles coordinates only the right part
+        xk = sequence.at(k).getPosition().x;
+        yk = sequence.at(k).getPosition().y;
+
+        // changing rectangles coordinates and elements
+        sequence.at(k) = rightSeq.at(j);
+        sequence.at(k).setPosition(sf::Vector2f(xk, yk));
+
+        // hoovering effect
+        sequence.at(k).setFillColor(sf::Color::Red);
+        sequence.at(first).setFillColor(sf::Color::Green);
+        sequence.at(mid + 1).setFillColor(sf::Color::Blue);
+        sequence.at(last).setFillColor(sf::Color::Green);
+
+        // Printing
+        window.clear(sf::Color::White);
+        for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
+        {
+            std::cout << (*itp).getSize().y << " ";
+            window.draw(*itp);
+        }
+        window.display();
+
+        // hoovering effect reset
+        sequence.at(k).setFillColor(sf::Color::Black);
+        sequence.at(first).setFillColor(sf::Color::Black);
+        sequence.at(mid + 1).setFillColor(sf::Color::Black);
+        sequence.at(last).setFillColor(sf::Color::Black);
+
+        j++;
+        k++;
+    }
+    if (IsSorted())
+        return PrintSortedSeq(init);
 }

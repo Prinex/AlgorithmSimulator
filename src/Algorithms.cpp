@@ -55,6 +55,10 @@ void SortingAlgorithms::SortSeq()
 
 int SortingAlgorithms::Print(std::unique_ptr<Interface>& init)
 {
+	for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
+	{
+		std::cout << (*itp).getSize().y << " ";
+	}
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -70,9 +74,9 @@ int SortingAlgorithms::Print(std::unique_ptr<Interface>& init)
 			}
 		}
 		window.clear(sf::Color::White);
-		for (std::vector<sf::RectangleShape>::iterator it = sequence.begin(); it != sequence.end(); it = std::next(it))
+		for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
 		{
-			window.draw(*it);
+			window.draw(*itp);
 		}
 		window.display();
 	}

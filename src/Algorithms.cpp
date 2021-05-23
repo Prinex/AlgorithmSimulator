@@ -97,6 +97,10 @@ bool SortingAlgorithms::IsSorted()
 
 int SortingAlgorithms::PrintSortedSeq(std::unique_ptr<Interface>& init)
 {
+	for (std::vector<sf::RectangleShape>::iterator it = sequence.begin(); it != sequence.end(); it = std::next(it))
+	{
+		std::cout << (*it).getSize().y << " ";
+	}
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -114,7 +118,6 @@ int SortingAlgorithms::PrintSortedSeq(std::unique_ptr<Interface>& init)
 		window.clear(sf::Color::White);
 		for (std::vector<sf::RectangleShape>::iterator it = sequence.begin(); it != sequence.end(); it = std::next(it))
 		{
-			if (IsSorted() != true) std::cout << (*it).getSize().y << " ";
 			(*it).setFillColor(sf::Color::Green);
 			window.draw(*it);
 		}

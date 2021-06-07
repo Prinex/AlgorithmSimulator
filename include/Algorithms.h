@@ -8,7 +8,7 @@
 #include <SFML/Window.hpp>
 #include <vector>
 
-// NOTE: sf:: prefix is SFML and everything after it are defined in the SFML/... .hpp files 
+// NOTE: sf:: is the namespace for all SFML functionalities declared in /include/SFML/... .hpp files 
  
 // Forward declaration
 class Interface;

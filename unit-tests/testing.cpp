@@ -6,10 +6,8 @@
 #include "SortingAlgorithms/InsertionSort.h"
 #include "SortingAlgorithms/QuickSort.h"
 #include "SortingAlgorithms/MergeSort.h"
-/*
-#include "SortingAlgorithms/QuickSort.h"
 #include "SortingAlgorithms/HeapSort.h"
-*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -348,7 +346,7 @@ SCENARIO( "Quick Sort can be used with an empty or non-empty vector")
 
 SCENARIO( "Sorting with Quick Sort")
 {
-	GIVEN( "A some vectors with random values")
+	GIVEN( "some vectors with random values")
 	{
 		std::vector<int> seq = fillUpVector(-20, 100, 70);
 		std::vector<int> sorted;
@@ -377,6 +375,75 @@ SCENARIO( "Sorting with Quick Sort")
 				sorted = QuickSort(seq, 0, seq.size() - 1);
 				REQUIRE(sorted == seqCpy);
 				REQUIRE(seq.size() == 327); 
+				REQUIRE(sorted.size() == seqCpy.size());
+			}
+		}
+	}
+}
+
+SCENARIO( "Heap Sort can be used with an empty or non-empty vector")
+{
+	GIVEN( "An empty vector")
+	{
+		std::vector<int> seq;
+		std::vector<int> sorted;
+
+		WHEN( "vector is empty")
+		{
+			THEN( "nothing happens")
+			{
+				HeapSort(seq, seq.size() / 2 - 1, seq.size());
+				REQUIRE(seq.size() == 0);
+			}
+		}
+		AND_WHEN( "vector is not empty")
+		{
+			seq = fillUpVector(-35, 375, 32);
+
+			REQUIRE(seq.size() != 0);
+			REQUIRE(seq.size() > 0);
+			 
+			THEN( "sorting happens")
+			{
+				sorted = HeapSort(seq, seq.size() / 2 - 1, seq.size());
+				REQUIRE(sorted.size() != 0);
+				REQUIRE(sorted.size() > 0);
+			}
+		}
+	}
+}
+
+SCENARIO( "Sorting with Heap Sort")
+{
+	GIVEN( "some vectors with random values")
+	{
+		std::vector<int> seq = fillUpVector(-20, 100, 70);
+		std::vector<int> sorted;
+		std::vector<int> seqCpy;
+
+		WHEN( "sorting a small-sized vector")
+		{
+			seqCpy = seq;
+			std::sort(seqCpy.begin(), seqCpy.end());
+
+			THEN( "returns the sorted vector")
+			{
+				REQUIRE(HeapSort(seq, seq.size() / 2 - 1, seq.size()) == seqCpy);
+				REQUIRE(seq.size() == 70);
+				REQUIRE(seq.size() == seqCpy.size());
+			}
+		}
+		AND_WHEN( "sorting a big-sized vector")
+		{
+			seq = fillUpVector(-7, 787, 327);
+			seqCpy = seq;
+			std::sort(seqCpy.begin(), seqCpy.end());
+
+			THEN( "returns the sorted vector")
+			{
+				sorted = HeapSort(seq, seq.size() / 2 - 1, seq.size());
+				REQUIRE(sorted == seqCpy);
+				REQUIRE(seq.size() == 327);
 				REQUIRE(sorted.size() == seqCpy.size());
 			}
 		}

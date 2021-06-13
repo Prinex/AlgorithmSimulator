@@ -82,7 +82,16 @@ class HeapSort : public SortingAlgorithms
 {
 public:
 	HeapSort(int min, int max, int els, sf::RenderWindow& win);
+	/** Like MergeSort and QuickSort, Heap Sort will be done recursively
+	 *	So, again Sort method here will be just an entry point for the HSort method where the actual sorting happens
+	 */
 	int Sort(std::unique_ptr<Interface>& init);
+	/**
+	*/
+	int Heapify(std::unique_ptr<Interface>& init, int start, int end);
+	/**
+	*/
+	int HSort(std::unique_ptr<Interface>& init, int start, int size);
 };
 
 

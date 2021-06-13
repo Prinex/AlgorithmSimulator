@@ -36,10 +36,10 @@ int BubbleSort::Sort(std::unique_ptr<Interface>& init)
 				window.clear(sf::Color::White);
 				for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
 				{
-					if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
+					std::cout << (*itp).getSize().y << " ";
 					window.draw(*itp);
 				}
-				if (IsSorted() != true) std::cout << std::endl;
+				std::cout << std::endl;
 				window.display();
 
 				// hoovering effect

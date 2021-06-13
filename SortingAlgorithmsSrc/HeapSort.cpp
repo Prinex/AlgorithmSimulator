@@ -120,7 +120,7 @@ int HeapSort::HSort(std::unique_ptr<Interface>& init, int start, int size)
 		window.clear(sf::Color::White);
 		for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
 		{
-			if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
+			std::cout << (*itp).getSize().y << " ";
 			window.draw(*itp);
 		}
 		std::cout << std::endl;

@@ -2,14 +2,17 @@
 # Prerequisites
 *.d
 
-# subdirectories
+# directories
 unit-tests/*.o
 unit-tests/*.obj
 
-# directories
 /build/*
 bin/
 lib/
+
+SFML_Win/
+SFML_Linux/
+SFML_macOS/
 
 # Compiled Object files
 *.slo

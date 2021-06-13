@@ -32,7 +32,6 @@ int QuickSort::QSort(std::unique_ptr<Interface>& init, int left, int right)
 				{
 					window.draw(*itp);
 				}
-				std::cout << std::endl;
 				window.display();
 				
 				// hoovering effect reset
@@ -54,7 +53,6 @@ int QuickSort::QSort(std::unique_ptr<Interface>& init, int left, int right)
 				{
 					window.draw(*itp);
 				}
-				std::cout << std::endl;
 				window.display();
 				
 				// hoovering effect reset
@@ -111,7 +109,6 @@ int QuickSort::QSort(std::unique_ptr<Interface>& init, int left, int right)
 				{
 					window.draw(*itp);
 				}
-				std::cout << std::endl;
 				window.display();
 				
 				// hoovering effect reset

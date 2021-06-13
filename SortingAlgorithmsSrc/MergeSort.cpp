@@ -159,6 +159,7 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
             std::cout << (*itp).getSize().y << " ";
             window.draw(*itp);
         }
+        std::cout << std::endl;
         window.display();
 
         // hoovering effect reset

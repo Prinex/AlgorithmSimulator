@@ -29,7 +29,6 @@ int HeapSort::Heapify(std::unique_ptr<Interface>& init, int start, int end)
 		{
 			window.draw(*itp);
 		}
-		std::cout << std::endl;
 		window.display();
 		
 		// hoovering effect reset
@@ -49,7 +48,6 @@ int HeapSort::Heapify(std::unique_ptr<Interface>& init, int start, int end)
 		{
 			window.draw(*itp);
 		}
-		std::cout << std::endl;
 		window.display();
 		
 		// hoovering effect reset
@@ -76,7 +74,7 @@ int HeapSort::Heapify(std::unique_ptr<Interface>& init, int start, int end)
 		window.clear(sf::Color::White);
 		for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
 		{
-			if (IsSorted() != true) std::cout << (*itp).getSize().y << " ";
+			std::cout << (*itp).getSize().y << " ";
 			window.draw(*itp);
 		}
 		std::cout << std::endl;

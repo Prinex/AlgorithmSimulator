@@ -1,6 +1,16 @@
 #ifndef INTERFACE_H_INCLUDED
 #define INTERFACE_H_INCLUDED
 
+// clearing the screen on windows, linux and macOS
+#ifdef _WIN64
+	#define clear_console() std::system("cls")
+#elif defined(__linux__) || defined(__APPLE__)
+	#define clear_console() std::system("clear")
+#else
+	std::cerr << "The current OS is unsupported." << std::endl;
+#endif
+
+
 #include "Algorithms.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -139,8 +149,6 @@ public:
 	 *  @return back where it was called last time (menu feature / navigating)
 	 */
 };
-
-
 
 
 

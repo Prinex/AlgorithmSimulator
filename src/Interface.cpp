@@ -481,6 +481,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Reset")
 					{
+						clear_console();
 						if (inputMin == 0 && inputMax == 0 && inputEls == 0)
 						{
 							std::cerr << "There is no sequence generated" << std::endl;
@@ -495,6 +496,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Generate")
 					{
+						clear_console();
 						if (inputMin == 0 || inputMax == 0 || inputEls == 0)
 						{
 							std::cerr << "Cannot generate a sequence by default configuration" << std::endl;
@@ -533,6 +535,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Sort")
 					{
+						clear_console();
 						if (inputMin == 0 || inputMax == 0 || inputEls == 0)
 						{
 							std::cerr << "There is no sequence generated" << std::endl;
@@ -569,3 +572,4 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 	}
 	return 0;
 }
+

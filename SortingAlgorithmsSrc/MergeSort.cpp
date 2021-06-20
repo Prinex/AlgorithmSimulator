@@ -173,4 +173,5 @@ int MergeSort::Merge(std::unique_ptr<Interface>& init, unsigned long long int fi
     }
     if (IsSorted())
         return PrintSortedSeq(init);
+    return 0;
 }

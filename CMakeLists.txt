@@ -1,7 +1,7 @@
 # documentation for configuring SFML with CMake : https://en.sfml-dev.org/forums/index.php?topic=24070.0
 
 cmake_minimum_required(VERSION 3.15)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 project(AlgorithmSimulator)
 
@@ -9,13 +9,7 @@ project(AlgorithmSimulator)
 include_directories(${CMAKE_SOURCE_DIR})
 
 # directory for excutables
-file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-
-# object files
-file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
-
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # configuring SFML for windows
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
@@ -34,7 +28,6 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     message(STATUS "Linux detected")
 	set(LINUX TRUE)
-	#set(SFML_STATIC_LIBRARIES TRUE)
 	set(SFML_DIR "./SFML_Linux/lib/cmake/SFML")
 else()
 	message(FATAL_ERROR "Your Operating System is not supported")
@@ -51,14 +44,11 @@ file(GLOB SOURCES "SortingAlgorithmsSrc/*.cpp" "src/*.cpp")
 
 # compiling the files
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
-
-#if(SFML_FOUND)
-	link_directories(${SFML_LIBRARY_DIR})
-	# sfml .dll files and the .dll files for tgui
-	target_link_libraries(${PROJECT_NAME} sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
-#endif()
+# linking SFML's libraries
+link_directories(${SFML_LIBRARY_DIR})
+target_link_libraries(${PROJECT_NAME} sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
 
 
 # this will allow us to install an .exe file of the project
 install(TARGETS ${PROJECT_NAME} DESTINATION bin) #${CMAKE_INSTALL_PREFIX}/bin
-install(FILES Main.cpp DESTINATION src)          #${CMAKE_INSTALL_PREFIX}/src
+install(FILES ./src/Main.cpp DESTINATION src)    #${CMAKE_INSTALL_PREFIX}/src

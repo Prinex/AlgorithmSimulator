@@ -16,6 +16,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System/String.hpp>
 #include <iostream>
+#include <filesystem>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <memory>

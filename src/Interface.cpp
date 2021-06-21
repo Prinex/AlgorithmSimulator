@@ -85,7 +85,24 @@ void Button::Draw(sf::RenderWindow& window)
 // Interface definitions  
 Interface::Interface()
 {
-	if (!font.loadFromFile("../design/quicksandBold.otf"))
+	// finding the absolute path of the font file
+	// and format it correspondingly
+	std::stringstream buff;
+	std::string fontPath;
+	buff << std::filesystem::absolute("../design/quicksandBold.otf");
+	buff >> fontPath;
+	
+	for (std::size_t i = 0; i < fontPath.size(); i++)
+	{
+		std::size_t found = fontPath.find("\\\\");
+		if (found != std::string::npos)
+			fontPath.replace(found, 2, "/");
+		std::size_t found1 = fontPath.find('"');
+		if (found1 != std::string::npos)
+			fontPath.replace(found1, 1, "");
+	}
+
+	if (!font.loadFromFile(fontPath))
 		std::cerr << "There's no such file" << std::endl;
 
 	hint.setFont(font);

@@ -479,6 +479,11 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "<")
 					{
 						inputMax += 10;
+						if (inputMax > 790)
+						{
+							std::cerr << "Height constraint exceeded: Height cannot be greater than 790." << std::endl;
+							inputMax = 790;
+						}
 						configButtons.at(5).SetButton(std::to_string(inputMax));
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "+")

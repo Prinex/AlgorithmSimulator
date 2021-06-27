@@ -85,7 +85,24 @@ void Button::Draw(sf::RenderWindow& window)
 // Interface definitions  
 Interface::Interface()
 {
-	if (!font.loadFromFile("/home/holiness/AlgorithmSimulator/design/quicksandBold.otf"))
+	// finding the absolute path of the font file
+	// and format it correspondingly
+	std::stringstream buff;
+	std::string fontPath;
+	buff << std::filesystem::absolute("../design/quicksandBold.otf");
+	buff >> fontPath;
+	
+	for (std::size_t i = 0; i < fontPath.size(); i++)
+	{
+		std::size_t found = fontPath.find("\\\\");
+		if (found != std::string::npos)
+			fontPath.replace(found, 2, "/");
+		std::size_t found1 = fontPath.find('"');
+		if (found1 != std::string::npos)
+			fontPath.replace(found1, 1, "");
+	}
+
+	if (!font.loadFromFile(fontPath))
 		std::cerr << "There's no such file" << std::endl;
 
 	hint.setFont(font);
@@ -283,7 +300,7 @@ int Interface::Init(std::unique_ptr<Interface>& init)
 				case sf::Event::KeyPressed:
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 					{
-						return 0;
+						exit(3);
 					}
 					break;
 				}
@@ -462,11 +479,21 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "<")
 					{
 						inputMax += 10;
+						if (inputMax > 790)
+						{
+							std::cerr << "Height constraint exceeded: Height cannot be greater than 790." << std::endl;
+							inputMax = 790;
+						}
 						configButtons.at(5).SetButton(std::to_string(inputMax));
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "+")
 					{
 						inputEls += 1;
+						if (inputEls > 212)
+						{
+							std::cerr << "Number of units constraint exceeded: The number of units cannot be greater than 212 units." << std::endl;
+							inputEls = 212;
+						}
 						configButtons.at(8).SetButton(std::to_string(inputEls));
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "-")
@@ -481,6 +508,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Reset")
 					{
+						clear_console();
 						if (inputMin == 0 && inputMax == 0 && inputEls == 0)
 						{
 							std::cerr << "There is no sequence generated" << std::endl;
@@ -495,6 +523,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Generate")
 					{
+						clear_console();
 						if (inputMin == 0 || inputMax == 0 || inputEls == 0)
 						{
 							std::cerr << "Cannot generate a sequence by default configuration" << std::endl;
@@ -533,6 +562,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Sort")
 					{
+						clear_console();
 						if (inputMin == 0 || inputMax == 0 || inputEls == 0)
 						{
 							std::cerr << "There is no sequence generated" << std::endl;
@@ -541,7 +571,7 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 						if (generateSeq->IsSorted())
 						{
 							std::cerr << "The sequence is already sorted" << std::endl;
-							break;
+							return generateSeq->PrintSortedSeq(init);
 						}
 						return generateSeq->Sort(init);
 					}
@@ -569,3 +599,4 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 	}
 	return 0;
 }
+

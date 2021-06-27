@@ -10,6 +10,9 @@ std::vector<int> InsertionSort(std::vector<int>& sequence)
 	int j;
 	int leftmost;
 	
+	// prevent segmentation fault due to algorithm starting to sort from positon 1
+	if (sequence.size() == 0)
+		return sequence;
 	for (iti = sequence.begin() + 1; iti != sequence.end(); iti = std::next(iti))
 	{
 		j = std::distance(sequence.begin(), std::prev(iti));
@@ -24,3 +27,4 @@ std::vector<int> InsertionSort(std::vector<int>& sequence)
 	}
 	return sequence;
 }
+

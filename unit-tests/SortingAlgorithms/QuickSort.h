@@ -1,68 +1,45 @@
 #pragma once
 
-
-#include <vector>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 
-//	1. SELECT THE PIVOT ELEMENT (LAST, FIRST, MID)
-//	2. Run a while loop which has the conditon of first >= last when the two pointers meet eachother
-//	3. separate the elements that are less than the pivot and elements that are greater or equal to the pivot 
-//  4. if l < pivot (found) and r >= pivot (found) swap l and r
-//  5. if l == r swap this value with the pivot  
-
-void Separate(std::vector<int>& sequence, int first, int last, int& pivot)
+std::vector<int> QuickSort(std::vector<int>& sequence, int left, int right)
 {
-	pivot = (first + last) / 2;
+	int p = (left + right) / 2;
+	int pivot = sequence.at(p);										// median pivot
+	int l = left;													// left marker
+	int r = right;													// right marker
 
-	int left = 0;
-	int right = 0;
-	int l = first;
-	int r = last;
-
-	while (sequence.at(l) != sequence.at(r))
-	{
-		if (sequence.at(l) >= sequence.at(pivot))
-		{
-			left = l;
+	while (l <= r)													// while the left marker is not beyond the
+	{																// right marker or if they are at the same position
+		while (sequence.at(l) < pivot)								// while the left marker is less
+		{															// than the pivot
+			l++;													// move the left marker to the right
 		}
-		else 
-		{
-			++l;
+		while (sequence.at(r) > pivot)								// while the right marker is greater
+		{															// than the pivot
+			r--;													// move the right marker to the left
 		}
-		if (sequence.at(r) < sequence.at(pivot))
-		{
-			right = r;
+		if (l <= r)													// if the left marker is not beyond the
+		{															// right marker or if they are at the same position
+			std::swap(sequence.at(l), sequence.at(r));				// swap the markers
+			if (p == l)												// if the left marker ran into the pivot
+			{
+				p = r;
+			}
+			else if (p == r)				 						// if the right marker ran into the pivot
+			{
+				p = l;
+			}
+			l++;													// move the left marker to the right
+			r--;													// move the right marker to the left
 		}
-		else
-		{
-			--r;
-		}
-		if (sequence.at(l) >= sequence.at(pivot) && sequence.at(r) < sequence.at(pivot))
-		{
-			std::swap(sequence.at(l), sequence.at(r));
-		}
-		if (l == r)
-		{
-			std::swap(sequence.at(l), sequence.at(pivot));
-			pivot = l;
-		}
-
-		
 	}
+	if (left < r)													// recurse the left side of elements 
+		QuickSort(sequence, left, r);								// less than the pivot
+	if (l < right)													// recurse the right side of elements
+		QuickSort(sequence, l, right);								// bigger than the pivot
+	return sequence;												// return the sorted sequence
 }
-
-std::vector<int> QuickSort(std::vector<int>& sequence, int first, int last, int& pivot)
-{
-	if (first < last)
-	{
-		Separate(sequence, first, last, pivot);
-		QuickSort(sequence, first, pivot - 1);
-		QuickSort(sequence, pivot + 1, last);
-	}
-
-	return sequence;
-}
-
-  

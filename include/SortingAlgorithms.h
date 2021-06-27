@@ -41,7 +41,7 @@ public:
 	 *  Sort method will be just an entry point for the MSort method where all sorting steps occur
 	 */
 	int Sort(std::unique_ptr<Interface>& init);
-	/** MSort will be used for the recursively 
+	/** MSort will be used for the recursive steps
 	 *  @param init - a referenced object to the first initialization of the window object
 	 *  @param first - a 64bit unsgined integer for omitting overflowing pointing to the first index of a sequence
 	 *  @param last - a 64bit unsgined integer for omitting overflowing pointing to the last index of a sequence
@@ -64,7 +64,17 @@ class QuickSort : public SortingAlgorithms
 {
 public:
 	QuickSort(int min, int max, int els, sf::RenderWindow& win);
+	/** Like MergeSort, QuickSort is done recursively
+	 *	So, again Sort method here will be just an entry point for the Qsort method where the actual sorting happens
+	 */
 	int Sort(std::unique_ptr<Interface>& init);
+	/** QSort will separate the list into two parts, each part will be called recursively until all of the calls will meet the 
+	 *  base case and return the corresponding elemens accordingly to the stack of calls
+	 *  @param init - a referenced object to the first initialization of the window object
+	 *  @param left - index of the first element in the list, left marker
+	 *  @param right - index of the last element in the list, right marker
+	 */
+	int QSort(std::unique_ptr<Interface>& init, int left, int right);
 };
 
 
@@ -72,7 +82,16 @@ class HeapSort : public SortingAlgorithms
 {
 public:
 	HeapSort(int min, int max, int els, sf::RenderWindow& win);
+	/** Like MergeSort and QuickSort, Heap Sort will be done recursively
+	 *	So, again Sort method here will be just an entry point for the HSort method where the actual sorting happens
+	 */
 	int Sort(std::unique_ptr<Interface>& init);
+	/**
+	*/
+	int Heapify(std::unique_ptr<Interface>& init, int start, int end);
+	/**
+	*/
+	int HSort(std::unique_ptr<Interface>& init, int start, int size);
 };
 
 

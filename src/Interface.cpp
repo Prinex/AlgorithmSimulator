@@ -489,6 +489,11 @@ int Interface::ConfigBar(std::unique_ptr<Interface>& init)
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "+")
 					{
 						inputEls += 1;
+						if (inputEls > 212)
+						{
+							std::cerr << "Number of units constraint exceeded: The number of units cannot be greater than 212 units." << std::endl;
+							inputEls = 212;
+						}
 						configButtons.at(8).SetButton(std::to_string(inputEls));
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "-")

@@ -5,6 +5,6 @@ rm -rf SFML_macOS
 rm -rf SFML_Linux
 
 echo "Unzipping SFML..."
-unzip SFML.zip -x SFML_Win  
+unzip SFML.zip 
 
 echo "Done"

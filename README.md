@@ -1,6 +1,15 @@
 > AlgorithmSimulator is a cross-platform project for visualizing sorting and pathfinding algorithms.
 > This project consists of two majors parts: One part of the project deals with sorting algorithms and another with pathfinding algorithms which is under processing.
 
+### Beforehand
+
+* You need to:
+
+1. To have VS 2019 installed to generate the project.
+2. To have cmake 3.15 version or greater installed.
+2. To have Git Bash or Linux terminal on Windows to run the Shell script files. On Linux and macOS you can run them without any problem (Unix-like systems).
+
+
 ### Building and running the project 
 
 1. Before building and running the project you first need to setup SFML which is the library used for implementing the graphics. 

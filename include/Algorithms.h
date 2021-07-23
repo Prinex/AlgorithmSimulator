@@ -10,7 +10,8 @@
 
 // NOTE: sf:: is the namespace for all SFML functionalities declared in /include/SFML/... .hpp files 
  
-// Forward declaration
+// Forward declarations
+class Button;
 class Interface;
 
 /**
@@ -22,7 +23,7 @@ class SortingAlgorithms
 protected:
 	std::vector<sf::RectangleShape> sequence;		// vector which will contain a randomized sequence
 	std::vector<sf::RectangleShape> sequenceCpy;    // a copy of sequence used for interaction features
-	sf::RenderWindow& window;						// initializes the window
+	sf::RenderWindow& window;						// initialization of the window
 	int minimum, maximum;							// the range in which the elements will be randomized
 	int elements;									// the number of elements which will be initialized
 
@@ -71,8 +72,36 @@ public:
 	int PrintSortedSeq(std::unique_ptr<Interface>& init);
 };
 
+/** Base class from which the pathfinding algorithms classes will inherit (Polymorphic class)
+ *  The base class will initialize a grid
+ */
+class PathFindingAlgorithms
+{
+protected:
+	int rows = 23;							// size of the grid is rows x columns as specified : 22 x 40 
+	int columns = 41;						//
+	sf::RenderWindow& window;				// initialization of the window
+	/// <summary>
+	/// Other attributes needed:
+	/// *Data structure for start point
+	/// *Data structure for end point
+	/// *A 2d vector, the configured grid
+	/// </summary>
+	std::vector<std::vector<Button>> grid;		// the grid is a 2d vector of RectangleShape objects declared & defined in the SFML lib
 
-
+public:
+	// PathFindingAlgorithms is a class constructor which initializes the grid
+	PathFindingAlgorithms(sf::RenderWindow& win);
+	/** Visualize is a pure virtual method for overriding the Visualize method for different implementations
+	 *  of the pathfinding algorithms and param init which is what I described about win param from
+	 *  SortingAlgorithms constructor
+	 *	This pure virtual method can't be overriden with different number of parameters, but it can
+	 *  be used as an entry point to an actual method with different no. of paramteres (not needed)
+	 *  @param init - a referenced object to the first initialization of the window object
+	 *  @return back where it was called last time (menu feature / navigating)
+	 */
+	virtual int Visualize(std::unique_ptr<Interface>& init) = 0;
+};
 
 
 

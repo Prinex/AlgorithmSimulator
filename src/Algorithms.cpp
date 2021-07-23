@@ -130,3 +130,28 @@ int SortingAlgorithms::PrintSortedSeq(std::unique_ptr<Interface>& init)
 	}
 	return 0;
 }
+
+
+// PathFindingAlgorithms base class definitons 
+PathFindingAlgorithms::PathFindingAlgorithms(sf::RenderWindow& win) :
+	window(win)
+{
+	Button rect(sf::Color(193, 222, 201), sf::Vector2f(30, 30));
+	int xPos = 4;
+	int yPos = 70;
+	
+	for (int i = 0; i < rows; i++)
+	{
+		std::vector<Button> temp;
+		for (int j = 0; j < columns; j++)
+		{
+			temp.push_back(rect);
+			temp.at(j).Positionate(sf::Vector2f(xPos, yPos));
+			xPos += 31;
+		}
+		grid.push_back(temp);
+		xPos = 4;
+        yPos += 31;
+	}
+}
+

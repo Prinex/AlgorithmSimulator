@@ -1,12 +1,13 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "SortingAlgorithms/BubbleSort.h"
-#include "SortingAlgorithms/SelectionSort.h"
-#include "SortingAlgorithms/InsertionSort.h"
-#include "SortingAlgorithms/QuickSort.h"
-#include "SortingAlgorithms/MergeSort.h"
-#include "SortingAlgorithms/HeapSort.h"
+#include "SortingAlgorithms/BubbleSort.hpp"
+#include "SortingAlgorithms/SelectionSort.hpp"
+#include "SortingAlgorithms/InsertionSort.hpp"
+#include "SortingAlgorithms/QuickSort.hpp"
+#include "SortingAlgorithms/MergeSort.hpp"
+#include "SortingAlgorithms/HeapSort.hpp"
+#include "PathFindingAlgorithms/Dijkstra.hpp"
 
 #include <iostream>
 #include <vector>
@@ -34,6 +35,7 @@ std::vector<int> fillUpVector(int min, int max, int units)
 	return seq;
 }
 
+// testing sorting algorithms
 SCENARIO( "Bubble Sort can be used with an empty or non-empty vector")
 {
 	GIVEN( "An empty vector")
@@ -445,6 +447,45 @@ SCENARIO( "Sorting with Heap Sort")
 				REQUIRE(sorted == seqCpy);
 				REQUIRE(seq.size() == 327);
 				REQUIRE(sorted.size() == seqCpy.size());
+			}
+		}
+	}
+}
+
+// testing the pathfinding algorithms
+SCENARIO( "Finding the shortest path using Dijkstra Algorithm")
+{
+	GIVEN( "some instances of the Dijkstra algorithm with different starting and ending points")
+	{
+		Dijkstra d = Dijkstra(1, 423);
+		std::tuple<vect_int, int64_t> r = d.dijkstra();
+		std::tuple<vect_int, int64_t> solution({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 54, 95, 136, 177, 218, 259, 300, 341, 382, 423 }, 2053);
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN("returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = Dijkstra(5, 943);
+			std::tuple<vect_int, int64_t> r = d.dijkstra();
+			std::tuple<vect_int, int64_t> solution({ 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+													 34, 35, 36, 37, 38, 39, 40, 41, 82, 123, 164, 205, 246, 287, 328, 369, 410, 451, 492, 533, 574, 615, 656, 697,
+													 738, 779, 820, 861, 902, 943 }, 11183);
+			THEN( "returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
 			}
 		}
 	}

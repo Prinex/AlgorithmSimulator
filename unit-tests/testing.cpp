@@ -457,9 +457,9 @@ SCENARIO( "Finding the shortest path using Dijkstra Algorithm")
 {
 	GIVEN( "some instances of the Dijkstra algorithm with different starting and ending points")
 	{
-		Dijkstra d = Dijkstra(1, 423);
+		Dijkstra d = Dijkstra(1, 474);
 		std::tuple<vect_int, int64_t> r = d.dijkstra();
-		std::tuple<vect_int, int64_t> solution({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 54, 95, 136, 177, 218, 259, 300, 341, 382, 423 }, 2053);
+		std::tuple<vect_int, int64_t> solution({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 64, 105, 146, 187, 228, 269, 310, 351, 392, 433, 474}, 33);
 
 		WHEN( "Finding the shortest path of a short distance between two points")
 		{
@@ -474,11 +474,11 @@ SCENARIO( "Finding the shortest path using Dijkstra Algorithm")
 		}
 		AND_WHEN( "Finding the shortest path of a long distance between two points")
 		{
-			d = Dijkstra(5, 943);
+			d = Dijkstra(899, 47);
 			std::tuple<vect_int, int64_t> r = d.dijkstra();
-			std::tuple<vect_int, int64_t> solution({ 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-													 34, 35, 36, 37, 38, 39, 40, 41, 82, 123, 164, 205, 246, 287, 328, 369, 410, 451, 492, 533, 574, 615, 656, 697,
-													 738, 779, 820, 861, 902, 943 }, 11183);
+			std::tuple<vect_int, int64_t> solution({899, 858, 817, 776, 735, 694, 653, 612, 571, 530, 489, 448, 407, 366, 325, 284, 243, 202, 161, 120, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 
+													68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47}, 52);
+												
 			THEN( "returns the shortest path specifying the nodes and the total cost")
 			{
 				// checking if there are the same nodes

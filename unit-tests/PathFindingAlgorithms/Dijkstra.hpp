@@ -59,10 +59,10 @@ public:
 			{
 				// combinations of columns
 				if (i != grid.size() && j != grid.at(i).size() - 1)
-					add_edge(grid.at(i).at(j), grid.at(i).at(j + 1), grid.at(i).at(j));
+					add_edge(grid.at(i).at(j), grid.at(i).at(j + 1), LLONG_MAX);
 				// combinations of rows
 				if (i != grid.size() - 1 && j != grid.at(i).size())
-					add_edge(grid.at(i).at(j), grid.at(i + 1).at(j), grid.at(i).at(j));
+					add_edge(grid.at(i).at(j), grid.at(i + 1).at(j), LLONG_MAX);
 			}
 		}
 	}
@@ -142,12 +142,12 @@ public:
 		return result;																	// return the index found
 	}
 	/**
-		* GET UNIVISITED NODES
-		* input: a node
-		* output: all unvisited neighbours
-		* Finds all unvisited neighbour nodes
-		* of another node
-		*/
+	 * GET UNIVISITED NODES
+	 * input: a node
+	 * output: all unvisited neighbours
+	 * Finds all unvisited neighbour nodes
+	 * of another node
+	 */
 	vect_int getUnivisitedNodes(int64_t uNode)
 	{
 		vect_int resultList;															// unvisited neighbour nodes found
@@ -155,10 +155,30 @@ public:
 		for (auto neighbour : allNeighbours)											// go through all neighbour node
 		{
 			if (std::find(Q.begin(),													// if neighbour is unvisited
-				Q.end(), neighbour) != Q.end())											// append it to the vector of results
+				Q.end(), neighbour) != Q.end())	                    					// append it to the vector of results
 				resultList.push_back(neighbour);										//		
 		}
 		return resultList;																// return the neighbours found
+	}
+	/**
+	 * FIND WEIGHT
+	 * input: a 64-bit integer, a weight of an edge
+	 * output: a tuple of 2 integers, representing the coordinate of the weight found 
+	 * according to the 2d vector / graph
+	 * Finds the coordinated of weight of an edge and return its coordinates / indices
+	 * as a tuple
+	 */
+	std::tuple<int, int> FindWeight(int64_t weight)
+	{
+		for (int i = 0; i < grid.size(); i++)
+		{
+			for (int j = 0; j < grid.at(i).size(); j++)
+			{
+				if (grid.at(i).at(j) == weight)
+					return std::make_tuple(i, j);
+			}
+		}
+		return std::make_tuple(-1, -1);
 	}
 	/**
 	 * DIJKSTRA
@@ -182,16 +202,23 @@ public:
 		{
 			int u = findSmallestNode();								                    // find the smallest node
 			if (dist.at(u) == LLONG_MAX)							                    // if there is no route to destiantion
+			{
+				std::cout << "There is no route to destination" << std::endl;
 				break;												                    // stop
-			if (unpoppedQ.at(u) == end)								                    // destination reached
+			}
+			if (unpoppedQ.at(u) == end)													// destination reached
+			{
+				std::cout << "Destination reached" << std::endl;
 				break;												                    // stop
+			}																			
 
 			int64_t uNode = unpoppedQ.at(u);							                // the current node
 			Q.erase(Q.begin() + getPopPosition(uNode));				                    // pop the visited node
 			vect_int neighbours = getUnivisitedNodes(uNode);		                    // find all neighbours of the current visited node
+
 			for (uint32_t v = 0; v < neighbours.size(); v++)		                    // for each neighbour found
 			{
-				int64_t alt = dist.at(u) + weights[pair(uNode, neighbours.at(v))];      // add distance of u, to cost 
+				int64_t alt = dist.at(u) + 1;											// add distance of u, to cost (the cost is 1 unit from a cell to another)
 																						// from u to neighbour; assign to alt
 
 				if (alt < dist.at(getIndex(neighbours.at(v))))					        // if alt is less than neighbour distance 

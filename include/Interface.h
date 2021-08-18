@@ -39,6 +39,7 @@ protected:
 	bool wall = false;
 	bool startPoint = false;
 	bool endPoint = false;
+	int64_t weight;
 public:
 	// Button default constructor
 	Button();
@@ -106,6 +107,10 @@ public:
 
 	bool GetEndPoint() const;
 
+	void SetWeight(int64_t weight);
+
+	int64_t GetWeight() const;
+
 	/** Draw draws the button on the screen
 	 *  @param window - a referenced object to the first initialization of the window object
 	 */
@@ -141,8 +146,8 @@ protected:
 	int inputMax;
 	int inputEls;
 
-	// we need a data structure for the coordinates of the start and end points
-	// right heres
+	int64_t start = 0;
+	int64_t end = 0;
 
 	// Buttons for the configuration bar of pathfinding algorithms which will help us to find the shortest path 
 	// on the grid and clear the grid

@@ -139,7 +139,7 @@ PathFindingAlgorithms::PathFindingAlgorithms(sf::RenderWindow& win) :
 	Button rect(sf::Color(193, 222, 201), sf::Vector2f(30, 30));
 	int xPos = 4;
 	int yPos = 70;
-	
+	int64_t countCell = 1;
 	for (int i = 0; i < rows; i++)
 	{
 		std::vector<Button> temp;
@@ -147,7 +147,9 @@ PathFindingAlgorithms::PathFindingAlgorithms(sf::RenderWindow& win) :
 		{
 			temp.push_back(rect);
 			temp.at(j).Positionate(sf::Vector2f(xPos, yPos));
+			temp.at(j).SetWeight(countCell);
 			xPos += 31;
+			countCell++;
 		}
 		grid.push_back(temp);
 		xPos = 4;
@@ -155,3 +157,52 @@ PathFindingAlgorithms::PathFindingAlgorithms(sf::RenderWindow& win) :
 	}
 }
 
+PathFindingAlgorithms::PathFindingAlgorithms(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win) :
+	grid(g),
+	start(s),
+	end(e),
+	window(win)
+{
+}
+
+std::tuple<int, int> PathFindingAlgorithms::FindWeight(int64_t weight)
+{
+	for (int i = 0; i < grid.size(); i++)
+	{
+		for (int j = 0; j < grid.at(i).size(); j++)
+		{
+			if (grid.at(i).at(j).GetWeight() == weight)
+				return std::make_tuple(i, j);
+		}
+	}
+	return std::make_tuple(-1, -1);
+}
+
+int PathFindingAlgorithms::PrintPath(std::unique_ptr<Interface>& init)
+{
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::KeyPressed:
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					return init->ConfigGrid(init);
+				}
+			}
+		}
+		window.clear(sf::Color::White);
+		for (std::vector<std::vector<Button>>::iterator iti = grid.begin(); iti < grid.end(); iti = std::next(iti))
+		{
+			for (std::vector<Button>::iterator itj = iti->begin(); itj < iti->end(); itj = std::next(itj))
+			{
+				(*itj).Draw(window);
+			}
+		}
+		window.display();
+	}
+	return 0;
+}

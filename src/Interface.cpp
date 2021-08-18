@@ -111,6 +111,16 @@ bool Button::GetEndPoint() const
 	return endPoint;
 }
 
+void Button::SetWeight(int64_t w)
+{
+	weight = w;
+}
+
+int64_t Button::GetWeight() const
+{
+	return weight;
+}
+
 void Button::Draw(sf::RenderWindow& window)
 {
 	window.draw(button);
@@ -271,6 +281,7 @@ Interface::Interface()
 	int yPos = 70;
 	int rows = 23;
 	int columns = 41;
+	int64_t countCell = 1;
 	for (int i = 0; i < rows; i++)
 	{
 		std::vector<Button> temp;
@@ -278,7 +289,9 @@ Interface::Interface()
 		{
 			temp.push_back(rect);
 			temp.at(j).Positionate(sf::Vector2f(xPos, yPos));
+			temp.at(j).SetWeight(countCell);
 			xPos += 31;
+			countCell++;
 		}
 		grid.push_back(temp);
 		xPos = 4;
@@ -294,26 +307,16 @@ Interface::Interface()
 	dijsktraAlgB.SetFont(font);
 	dijsktraAlgB.Positionate({ 200, 100 });
 
-	Button kruskalAlgB("Kruskal", sf::Color::Black, 12, sf::Color(sf::Color::White), { 200, 50 });
-	kruskalAlgB.SetFont(font);
-	kruskalAlgB.Positionate({ 200, 150 });
-
-	Button primAlgB("Prim", sf::Color::Black, 12, sf::Color(sf::Color::White), { 200, 50 });
-	primAlgB.SetFont(font);
-	primAlgB.Positionate({ 200, 200 });
-
 	Button breadthFirstAlgB("Breadth First", sf::Color::Black, 12, sf::Color(sf::Color::White), { 200, 50 });
 	breadthFirstAlgB.SetFont(font);
-	breadthFirstAlgB.Positionate({ 200, 250 });
+	breadthFirstAlgB.Positionate({ 200, 150 });
 
 	Button depthFirstAlgB("Depth First", sf::Color::Black, 12, sf::Color(sf::Color::White), { 200, 50 });
 	depthFirstAlgB.SetFont(font);
-	depthFirstAlgB.Positionate({ 200, 300 });
+	depthFirstAlgB.Positionate({ 200, 200 });
 
 	pathAlgsButtons.push_back(aAsteriskAlgB);
 	pathAlgsButtons.push_back(dijsktraAlgB);
-	pathAlgsButtons.push_back(kruskalAlgB);
-	pathAlgsButtons.push_back(primAlgB);
 	pathAlgsButtons.push_back(breadthFirstAlgB);
 	pathAlgsButtons.push_back(depthFirstAlgB);
 
@@ -724,22 +727,31 @@ int Interface::ConfigGrid(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Visualize")
 					{
+						if (start == 0 && end != 0)
+						{
+							std::cerr << "The start point was not set" << std::endl;
+							break;
+						}
+						if (start != 0 && end == 0)
+						{
+							std::cerr << "The end point was not set" << std::endl;
+							break;
+						}
+						if (start == 0 && end == 0)
+						{
+							std::cerr << "The start and end point were not set" << std::endl;
+							break;
+						}
 						if (selectedAlg == "Dijkstra")
 						{
 
 							std::cout << "Visualizing" << std::endl;
-							// other parameters needed e.g. the configured grid, the exact coordinates of the start point and end point for the path
-							// start point and end point could be "infinite" - max of int (it can be a datastructure of 2 ints of infinite?)
-							// then it wil setted up in SetGrid
-							// in the grid
-							generateGrid = std::make_shared<Dijkstra>(window);
-							// should call Visualize pure virtual method
+							generateGrid = std::make_shared<Dijkstra>(grid, start, end, window);
 						}
+						generateGrid->Visualize(init);
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Reset")
 					{
-						// testing 
-						// it would be better if you can have the coordinates
 						for (std::vector<std::vector<Button>>::iterator iti = grid.begin(); iti < grid.end(); iti = std::next(iti))
 						{
 							for (std::vector<Button>::iterator itj = iti->begin(); itj < iti->end(); itj = std::next(itj))
@@ -750,7 +762,9 @@ int Interface::ConfigGrid(std::unique_ptr<Interface>& init)
 								(*itj).SetShapeColor(sf::Color(193, 222, 201));
 							}
 						}
-						std::cout << "Reseted" << std::endl;
+						start = 0;
+						end = 0;
+						std::cout << "Reset" << std::endl;
 					}
 					break;
 				case sf::Event::KeyPressed:
@@ -797,46 +811,74 @@ int Interface::SetGrid(std::unique_ptr<Interface>& init)
 					case sf::Event::MouseButtonPressed:
 						// for setting start and end point should allow only one time by getting the coordinates
 						// setting the start point
-						if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetStartPoint() == false)
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetStartPoint() == false && start == 0)
 						{
-							(*itj).SetStartPoint(true);
-							if ((*itj).DetectButton(window) == true)
+							if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false)
+							{
+								(*itj).SetStartPoint(true);
 								(*itj).SetShapeColor(sf::Color::Green);
+								start = (*itj).GetWeight();
+							}
 							break;
 						}
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetStartPoint() == true)
 						{
-							(*itj).SetStartPoint(false);
 							if ((*itj).DetectButton(window) == true)
+							{
+								(*itj).SetStartPoint(false);
 								(*itj).SetShapeColor(sf::Color(193, 222, 201));
+								start = 0;
+							}
 							break;
 						}
 						// setting the end point
-						if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetEndPoint() == false)
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetEndPoint() == false && end == 0)
 						{
-							(*itj).SetEndPoint(true);
 							if ((*itj).DetectButton(window) == true)
+							{
+								(*itj).SetEndPoint(true);
 								(*itj).SetShapeColor(sf::Color::Red);
+								end = (*itj).GetWeight();
+							}
 							break;
 						}
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetEndPoint() == true)
 						{
-							(*itj).SetEndPoint(false);
 							if ((*itj).DetectButton(window) == true)
+							{
+								(*itj).SetEndPoint(false);
 								(*itj).SetShapeColor(sf::Color(193, 222, 201));
+								end = 0;
+							}
 							break;
 						}
 						// placing walls
-						if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false)
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetStartPoint() == true && (*itj).GetEndPoint() == false)
 						{
-							(*itj).SetWall(true);
-							(*itj).SetShapeColor(sf::Color(0, 109, 119));
+							std::cerr << "Cannot place a wall on the start point" << std::endl;
 							break;
 						}
-						if ((*itj).DetectButton(window) == true && (*itj).GetWall() == true)
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetStartPoint() == false && (*itj).GetEndPoint() == true)
 						{
-							(*itj).SetWall(false);
-							(*itj).SetShapeColor(sf::Color(193, 222, 201));
+							std::cerr << "Cannot place a wall on the end point" << std::endl;
+							break;
+						}
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetStartPoint() == false && (*itj).GetEndPoint() == false)
+						{
+							if ((*itj).DetectButton(window) == true)
+							{
+								(*itj).SetWall(true);
+								(*itj).SetShapeColor(sf::Color(0, 109, 119));
+							}
+							break;
+						}
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetWall() == true)
+						{
+							if ((*itj).DetectButton(window) == true)
+							{
+								(*itj).SetWall(false);
+								(*itj).SetShapeColor(sf::Color(193, 222, 201));
+							}
 							break;
 						}
 						break;

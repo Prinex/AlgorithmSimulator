@@ -78,20 +78,20 @@ public:
 class PathFindingAlgorithms
 {
 protected:
-	int rows = 23;							// size of the grid is rows x columns as specified : 22 x 40 
-	int columns = 41;						//
+	int rows = 23;							// size of the grid is rows x columns as specified : 
+	int columns = 41;						// 23 x 41 
+	int64_t start;							// start point
+	int64_t end;							// end point
 	sf::RenderWindow& window;				// initialization of the window
-	/// <summary>
-	/// Other attributes needed:
-	/// *Data structure for start point
-	/// *Data structure for end point
-	/// *A 2d vector, the configured grid
-	/// </summary>
-	std::vector<std::vector<Button>> grid;		// the grid is a 2d vector of RectangleShape objects declared & defined in the SFML lib
+	std::tuple<int, int> weightIdx;
+	std::vector<std::vector<Button>> grid;	// the grid is a 2d vector of RectangleShape objects declared and defined in the Button class
+											// each element of this vector will be initialized with "infinity" / maximum of a 64 bit integer
+											// each element represent 1 unit in the grid / weighted graph 
 
 public:
 	// PathFindingAlgorithms is a class constructor which initializes the grid
 	PathFindingAlgorithms(sf::RenderWindow& win);
+	PathFindingAlgorithms(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
 	/** Visualize is a pure virtual method for overriding the Visualize method for different implementations
 	 *  of the pathfinding algorithms and param init which is what I described about win param from
 	 *  SortingAlgorithms constructor
@@ -101,6 +101,17 @@ public:
 	 *  @return back where it was called last time (menu feature / navigating)
 	 */
 	virtual int Visualize(std::unique_ptr<Interface>& init) = 0;
+	/**
+	 * FIND WEIGHT
+	 * input: a 64-bit integer, a weight of an edge
+	 * output: a tuple of 2 integers, representing the coordinate of the weight found
+	 * according to the 2d vector / graph
+	 * Finds the coordinated of weight of an edge and return its coordinates / indices
+	 * as a tuple
+	 */
+	std::tuple<int, int> FindWeight(int64_t weight);
+
+	int PrintPath(std::unique_ptr<Interface>& init);
 };
 
 

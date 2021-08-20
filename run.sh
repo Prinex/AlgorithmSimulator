@@ -4,7 +4,10 @@
 # run the project accordingly to the OS' specified above
 cd build
 
-if [[ "$OSTYPE" == "msys"* ]]; then
+if [[ $(find ./build/bin/Debug/ -name 'AlgorithmSimulator.exe') = AlgorithmSimulator.exe ]]; then
+	cd ./build/bin/
+	./AlgorithmSimulator.exe
+elif [[ "$OSTYPE" == "msys"* ]]; then
 	cmake --build .
 elif [[ "$OSTYPE" == "linux"* ]]; then
 	make

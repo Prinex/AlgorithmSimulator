@@ -9,9 +9,9 @@ Dijkstra::Dijkstra(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf:
 	previous = vect_int(size, LLONG_MAX);											// nothing visited
 
 	// initializing the edges and the weights according to the grid / 2d vector
-	for (int64_t i = 0; i < grid.size(); i++)
+	for (uint64_t i = 0; i < grid.size(); i++)
 	{
-		for (int64_t j = 0; j < grid.at(i).size(); j++)
+		for (uint64_t j = 0; j < grid.at(i).size(); j++)
 		{ 
 			// combinations of columns
 			if (i != grid.size() && j != grid.at(i).size() - 1)
@@ -179,7 +179,7 @@ vect_int Dijkstra::getUnivisitedNodes(int64_t uNode)
 	vect_int allNeighbours = edges[uNode];											// all nodes connected to uNode
 	for (auto neighbour : allNeighbours)											// go through all neighbour node
 	{
-		std::tuple<int, int> weightIdx = FindWeight(neighbour);						// omit walls
+		std::tuple<uint32_t, uint32_t> weightIdx = FindWeight(neighbour);			// omit walls
 		bool isWall = grid.at(std::get<0>(weightIdx)).at(std::get<1>(weightIdx)).GetWall(); // 
 		if (std::find(Q.begin(),													// if neighbour is unvisited
 			Q.end(), neighbour) != Q.end() && isWall == false)						// append it to the vector of results

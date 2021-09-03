@@ -12,8 +12,6 @@
 
 
 #include "Algorithms.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include <SFML/System/String.hpp>
 #include <iostream>
 #include <filesystem>

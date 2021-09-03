@@ -2,11 +2,19 @@
 #define ALGORITHMS_H_INCLUDED
 
 
-
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 #include <vector>
+#include <map>																			// for connected nodes and edges
+#include <tuple>																		// used for graph's indices
+#include <stack>																		// used for depth first search algorithm
+#include <utility>																		// for representing an edge (std::pair)
+#include <climits>																		// for interpreting infinity (LLONG_MAX)
+
+typedef std::vector<std::vector<bool>> vect2d_bool;										// alias for 2d vector of bools 
+typedef std::vector<int64_t> vect_int;													// alias for vector of ints
+typedef std::pair<int64_t, int64_t> pair;												// alias for vector
 
 // NOTE: sf:: is the namespace for all SFML functionalities declared in /include/SFML/... .hpp files 
  
@@ -80,14 +88,15 @@ class PathFindingAlgorithms
 protected:
 	int rows = 23;							// size of the grid is rows x columns as specified : 
 	int columns = 41;						// 23 x 41 
-	int64_t start;							// start point
-	int64_t end;							// end point
+	int64_t start;		    				// start point
+	int64_t end;      						// end point
 	sf::RenderWindow& window;				// initialization of the window
-	std::tuple<int, int> weightIdx;
+	std::map<int64_t, vect_int> edges;		// this hmap will contain neighbours of a node
+	std::map<pair, int64_t> weights;		// this hmap will contain the weights from a node to another
+	std::tuple<uint32_t, uint32_t> weightIdx;	// a tuple used for getting the indices of a node from the graph / grid
 	std::vector<std::vector<Button>> grid;	// the grid is a 2d vector of RectangleShape objects declared and defined in the Button class
 											// each element of this vector will be initialized with "infinity" / maximum of a 64 bit integer
 											// each element represent 1 unit in the grid / weighted graph 
-
 public:
 	// PathFindingAlgorithms is a class constructor which initializes the grid
 	PathFindingAlgorithms(sf::RenderWindow& win);
@@ -109,8 +118,15 @@ public:
 	 * Finds the coordinated of weight of an edge and return its coordinates / indices
 	 * as a tuple
 	 */
-	std::tuple<int, int> FindWeight(int64_t weight);
-
+	std::tuple<uint32_t, uint32_t> FindWeight(int64_t weight);
+	/**
+	 * PRINT PATH will print to the screen the final form of the graph / grid including the shortest path
+	 * deduced by the algorithm to the screen
+	 * This function has the role to print it continously, i.e., displayed, allowing the user to go back
+	 * to a sub-menu
+	 * @param init - a referenced object to the first initialization of the window object
+	 * @return back where it was called last time (menu feature / navigating)
+	 */
 	int PrintPath(std::unique_ptr<Interface>& init);
 };
 

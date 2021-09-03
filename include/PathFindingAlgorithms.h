@@ -2,22 +2,13 @@
 #define PATHFINDINGALGORITHMS_H_INCLUDED
 
 #include "Algorithms.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <map>																			// for connected nodes and edges
-#include <tuple>			
-#include <utility>																		// for representing an edge (std::pair)
-#include <climits>																		// for interpreting infinity (LLONG_MAX)
 
-typedef std::vector<int64_t> vect_int;													// alias for vector of ints
-typedef std::pair<int64_t, int64_t> pair;												// alias for vector
+
 
 
 class Dijkstra : public PathFindingAlgorithms
 {
 private:
-	std::map<int64_t, vect_int> edges;
-	std::map<pair, int64_t> weights;
 	vect_int dist;
 	vect_int previous;
 	vect_int Q;
@@ -36,7 +27,7 @@ public:
 	 * Inserts an edge and its weigth
 	 * to the graph
 	 */
-	int Dijkstra::Visualize(std::unique_ptr<Interface>& init);
+	int Visualize(std::unique_ptr<Interface>& init);
 	/**
 	 * DIJKSTRA
 	 * input: start node, end node
@@ -54,7 +45,7 @@ public:
 	int findSmallestNode();
 	/**
 	 * GET INDEX
-	 * input: a node index represented as a char
+	 * input: a node index represented as an integer
 	 * output: the numerical index of the node
 	 * Finds the numerical idx of a node's neighbour
 	 */
@@ -78,6 +69,17 @@ public:
 	vect_int getUnivisitedNodes(int64_t uNode);
 };
 
-
+// definitions of the below classes' methods are same as dijkstra's, e.g., 
+// the constructor and the pure virtual method
+class DepthFirstSearch : public PathFindingAlgorithms
+{
+private:
+	std::stack<std::tuple<int, int>> s;
+	vect2d_bool visited;
+public:
+	DepthFirstSearch(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
+	
+	int Visualize(std::unique_ptr<Interface>& init);
+};
 
 #endif // PATHFINDINGALGORITHMS_H_INCLUDED

@@ -744,10 +744,13 @@ int Interface::ConfigGrid(std::unique_ptr<Interface>& init)
 						}
 						if (selectedAlg == "Dijkstra")
 						{
-
-							std::cout << "Visualizing" << std::endl;
 							generateGrid = std::make_shared<Dijkstra>(grid, start, end, window);
 						}
+						if (selectedAlg == "Depth First")
+						{
+							generateGrid = std::make_shared<DepthFirstSearch>(grid, start, end, window);
+						}
+						std::cout << "Visualizing" << std::endl;
 						generateGrid->Visualize(init);
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Reset")
@@ -813,7 +816,7 @@ int Interface::SetGrid(std::unique_ptr<Interface>& init)
 						// setting the start point
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetStartPoint() == false && start == 0)
 						{
-							if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false)
+							if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetEndPoint() == false)
 							{
 								(*itj).SetStartPoint(true);
 								(*itj).SetShapeColor(sf::Color::Green);
@@ -834,7 +837,7 @@ int Interface::SetGrid(std::unique_ptr<Interface>& init)
 						// setting the end point
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetEndPoint() == false && end == 0)
 						{
-							if ((*itj).DetectButton(window) == true)
+							if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetStartPoint() == false)
 							{
 								(*itj).SetEndPoint(true);
 								(*itj).SetShapeColor(sf::Color::Red);

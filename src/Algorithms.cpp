@@ -134,7 +134,9 @@ int SortingAlgorithms::PrintSortedSeq(std::unique_ptr<Interface>& init)
 
 // PathFindingAlgorithms base class definitons 
 PathFindingAlgorithms::PathFindingAlgorithms(sf::RenderWindow& win) :
-	window(win)
+	window(win),
+	start(0),
+	end(0)
 {
 	Button rect(sf::Color(193, 222, 201), sf::Vector2f(30, 30));
 	int xPos = 4;
@@ -165,11 +167,11 @@ PathFindingAlgorithms::PathFindingAlgorithms(std::vector<std::vector<Button>> g,
 {
 }
 
-std::tuple<int, int> PathFindingAlgorithms::FindWeight(int64_t weight)
+std::tuple<uint32_t, uint32_t> PathFindingAlgorithms::FindWeight(int64_t weight)
 {
-	for (int i = 0; i < grid.size(); i++)
+	for (uint32_t i = 0; i < grid.size(); i++)
 	{
-		for (int j = 0; j < grid.at(i).size(); j++)
+		for (uint32_t j = 0; j < grid.at(i).size(); j++)
 		{
 			if (grid.at(i).at(j).GetWeight() == weight)
 				return std::make_tuple(i, j);

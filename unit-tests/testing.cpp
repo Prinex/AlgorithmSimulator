@@ -8,7 +8,7 @@
 #include "SortingAlgorithms/MergeSort.hpp"
 #include "SortingAlgorithms/HeapSort.hpp"
 #include "PathFindingAlgorithms/Dijkstra.hpp"
-
+#include "PathFindingAlgorithms/DepthFirstSearch.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -489,4 +489,41 @@ SCENARIO( "Finding the shortest path using Dijkstra Algorithm")
 			}
 		}
 	}
-}
+} 
+
+SCENARIO( "Finding the shortest path using Depth First Search Algorithm")
+{
+	GIVEN( "some instances of the Depth First Search algorithm with different starting and ending points")
+	{
+		DepthFirstSearch d = DepthFirstSearch(1, 3);
+		vect_int r = d.DFS();
+		vect_int solution = { 1, 2, 3};
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN("returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = DepthFirstSearch(1, 10);
+			vect_int r = d.DFS();
+			vect_int solution = { 1, 2, 3, 6, 9, 12, 11, 8, 5, 4, 7, 10 };
+			
+			THEN( "returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+	}
+} 

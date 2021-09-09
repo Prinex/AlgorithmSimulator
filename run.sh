@@ -4,13 +4,12 @@
 # run the project accordingly to the OS' specified above
 cd build
 
-if [[ $(find ./build/bin/Debug/ -name 'AlgorithmSimulator.exe') = AlgorithmSimulator.exe ]]; then
-	cd ./build/bin/
-	./AlgorithmSimulator.exe
-elif [[ "$OSTYPE" == "msys"* ]]; then
+if [[ "$OSTYPE" == "msys"* ]]; then
 	cmake --build .
 elif [[ "$OSTYPE" == "linux"* ]]; then
 	make
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    make all
 fi
 
 # if running from an executable file
@@ -27,5 +26,8 @@ if [[ "$OSTYPE" == "msys"* ]]; then
 elif [[ "$OSTYPE" == "linux"* ]]; then
 	cd ./build/bin/
 	./AlgorithmSimulator.exe
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    cd ./build/bin/
+    ./AlgorithmSimulator
 fi
 

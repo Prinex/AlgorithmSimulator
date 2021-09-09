@@ -19,14 +19,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	set(SFML_DIR "./SFML_Win/lib/cmake/SFML")
 # MacOS
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    message(STATUS "MacOS detected")
+    	message(STATUS "MacOS detected")
 	set(MACOSX TRUE)
-	set(SFML_STATIC_LIBRARIES TRUE)
-	set(CMAKE_FIND_FRAMEWORK LAST)
-	set(SFML_LIBRARY_DIR "./SFML_macOS/lib")
+	set(SFML_DIR "./SFML_macOS/Frameworks/SFML.framework/Resources/CMake")
 # Linux
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    message(STATUS "Linux detected")
+    	message(STATUS "Linux detected")
 	set(LINUX TRUE)
 	set(SFML_DIR "./SFML_Linux/lib/cmake/SFML")
 else()
@@ -35,18 +33,18 @@ endif()
 
 
 # after configuring the paths of sfml for windows, macOS and linux cmake needs only to find the below packages 
-find_package(SFML 2.5 COMPONENTS network audio graphics window system REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics window REQUIRED)
 
 
 # define & list the header an source files in the solution explorer
 file(GLOB HEADERS "include/*.h")
-file(GLOB SOURCES "SortingAlgorithmsSrc/*.cpp" "PathFindingAlgorithmsSrc/*.cpp" "src/*.cpp")
+file(GLOB SOURCES "SortingAlgorithmsSrc/*.cpp" "src/*.cpp")
 
 # compiling the files
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 # linking SFML's libraries
 link_directories(${SFML_LIBRARY_DIR})
-target_link_libraries(${PROJECT_NAME} sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window)
 
 
 # this will allow us to install an .exe file of the project

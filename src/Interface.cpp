@@ -134,7 +134,11 @@ Interface::Interface()
 	// and format it correspondingly
 	std::stringstream buff;
 	std::string fontPath;
-	buff << std::filesystem::absolute("../design/quicksandBold.otf");
+    #if defined(__linux__) || defined(__APPLE__)
+        buff << std::filesystem::absolute("design/quicksandBold.otf");
+    #else
+        buff << std::filesystem::absolute("../design/quicksandBold.otf");
+    #endif
 	buff >> fontPath;
 	
 	for (std::size_t i = 0; i < fontPath.size(); i++)

@@ -38,7 +38,7 @@ find_package(SFML 2.5 COMPONENTS graphics window REQUIRED)
 
 # define & list the header an source files in the solution explorer
 file(GLOB HEADERS "include/*.h")
-file(GLOB SOURCES "SortingAlgorithmsSrc/*.cpp" "src/*.cpp")
+file(GLOB SOURCES "SortingAlgorithmsSrc/*.cpp" "PathFindingAlgorithmsSrc/*.cpp" "src/*.cpp")
 
 # compiling the files
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})

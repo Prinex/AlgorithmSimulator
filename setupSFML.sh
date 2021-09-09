@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 rm -rf SFML_Win
 rm -rf SFML_macOS

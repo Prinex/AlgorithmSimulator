@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Building the project..."
 rm -rf build

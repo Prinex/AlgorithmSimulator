@@ -12,12 +12,11 @@ unzip SFML.zip
 if [[ "$OSTYPE" == "darwin"* ]]; then
     sudo cp -rf ./SFML_macOS/Frameworks/. /Library/Frameworks
     sudo cp -rf ./SFML_macOS/extlibs/. /Library/Frameworks
+	sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-audio.framework
+	sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-graphics.framework
+	sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-network.framework
+	sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-system.framework
+	sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-window.framework
 fi
-
-sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-audio.framework
-sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-graphics.framework
-sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-network.framework
-sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-system.framework
-sudo xattr -rd com.apple.quarantine /Library/Frameworks/sfml-window.framework
 
 echo "Done"

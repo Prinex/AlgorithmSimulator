@@ -10,23 +10,16 @@ SortingAlgorithms::SortingAlgorithms(int min, int max, int els, sf::RenderWindow
 	window(win)
 {
 	srand(time(NULL));
-	float yPosFixed;
 	float xCurrPos = 8;
-
-	#ifdef __linux__
-		yPosFixed = 700;
-	#else
-		yPosFixed = 797;
-	#endif
 
 	for (unsigned int i = 0; i != els; i++)
 	{
-		float randomHeight = rand() % max + min;
+		int randomHeight = rand() % max + min;
 		sf::RectangleShape unit;
 		unit.setSize(sf::Vector2f(4, randomHeight));
 		unit.setFillColor(sf::Color::Black);
 		unit.setRotation(180);
-		unit.setPosition(xCurrPos, yPosFixed);
+		unit.setPosition(xCurrPos, 797);
 		xCurrPos += 6;
 		sequence.push_back(unit);
 	}

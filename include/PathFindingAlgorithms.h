@@ -9,36 +9,36 @@
 class Dijkstra : public PathFindingAlgorithms
 {
 private:
-	vect_int dist;
-	vect_int previous;
-	vect_int Q;
-	vect_int unpoppedQ;
+	vect_int dist;								// records distances between nodes
+	vect_int previous;							// records previous visited nodes
+	vect_int Q;									// records the unvisited nodes
+	vect_int unpoppedQ;							// records all nodes
 public:
 	/**
-	 * GRAPH class constructor + initialization list
-	 * input: no. of vertices for the graph
-	 * Initializes the graph,
+	 * DIJKSTRA class constructor + initialization list
+	 * input: the graph operated by dijkstra, the start and end nodes, and the instance of the window
+	 * Initializes the edges of the graph, all distances between nodes set to "infinity", and all nodes set to unvisited
 	 */
 	Dijkstra(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
 	/**
-	 * ADD EDGE
-	 * input: 2 nodes and a weight
-	 * output: none
-	 * Inserts an edge and its weigth
-	 * to the graph
+	 * VISUALIZE pure virtual function for DIJKSTRA
+	 * input: the instance of the window
+	 * output: a function printing the final form of the grid on the screen
+	 * Finds the shortest path between 2 nodes specified
 	 */
 	int Visualize(std::unique_ptr<Interface>& init);
 	/**
-	 * DIJKSTRA
-	 * input: start node, end node
-	 * output: shortest path from start to end
-	 * Find the shortest path between 2 nodes specified
+	 * ADD EDGE
+	 * input: and the instance of the window
+	 * output: none
+	 * Inserts an edge and its weight to corresponing data structures
+	 * to the graph
 	 */
 	void add_edge(int64_t from_node, int64_t to_node, int64_t weight);
 	/**
 	 * FIND SMALLEST NODE
-	 * input: none
-	 * output: the integer index of the smallest node
+	 * input: a source node, a destination node and a weight 
+	 * output: an integer, i.e., index of the smallest node
 	 * Find the smallest with the lowest
 	 * cost from the current node to another
 	 */
@@ -69,16 +69,60 @@ public:
 	vect_int getUnivisitedNodes(int64_t uNode);
 };
 
-// definitions of the below classes' methods are same as dijkstra's, e.g., 
-// the constructor and the pure virtual method
 class DepthFirstSearch : public PathFindingAlgorithms
 {
 private:
-	std::stack<std::tuple<int, int>> s;
-	vect2d_bool visited;
+	std::stack<std::tuple<int, int>> s;				   // stack for nodes   
+	vect2d_bool visited;							   // records the status of a node (visited / unvisited - true / false)
 public:
+	/**
+	 * DEPTH FIRST SEARCH class constructor + initialization list
+	 * input: the graph operated by dijkstra, the start and end nodes, and the instance of the window
+	 * Initializes the edges of the graph, all distances between nodes set to "infinity", and all nodes set to unvisited
+	 */
 	DepthFirstSearch(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
-	
+	/**
+	 * VISUALIZE pure virtual function for BREADTH FIRST SEARCH
+	 * input: the instance of the window
+	 * output: a function printing the final form of the grid on the screen
+	 * Finds the shortest path between 2 nodes specified
+	 */
+	int Visualize(std::unique_ptr<Interface>& init);
+};
+
+/**
+ * note: bfs is really similar to dijkstra in finding the shortest path
+ * in fact, bfs uses same approach as dijkstra, i.e., keeping count of 
+ * previous visited nodes and distances from one node to another
+ */ 
+class BreadthFirstSearch : public PathFindingAlgorithms
+{
+private:
+	std::queue<int64_t> Q;								// records the unvisited nodes
+	vect_int dist;										// records distances between nodes	
+	vect_int previous;									// records previous visited nodes
+	vect_bool visited;									// records the status of a node (visited / unvisited - true / false)
+public:
+	/**
+	 * BREADTH FIRST SEARCH class constructor + initialization list
+	 * input: the graph operated by dijkstra, the start and end nodes, and the instance of the window
+	 * Sets all nodes to unvisited
+	 */
+	BreadthFirstSearch(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
+	/**
+	 * ADD EDGE
+	 * input: and the instance of the window
+	 * output: none
+	 * Inserts an edge and its weight to corresponing data structures
+	 * to the graph
+	 */
+	void add_edge(int64_t from_node, int64_t to_node, int64_t weight);
+	/**
+	 * VISUALIZE pure virtual function for BREADTH FIRST SEARCH
+	 * input: the instance of the window
+	 * output: a function printing the final form of the grid on the screen
+	 * Finds the shortest path between 2 nodes specified
+	 */
 	int Visualize(std::unique_ptr<Interface>& init);
 };
 

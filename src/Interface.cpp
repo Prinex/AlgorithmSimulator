@@ -754,6 +754,10 @@ int Interface::ConfigGrid(std::unique_ptr<Interface>& init)
 						{
 							generateGrid = std::make_shared<DepthFirstSearch>(grid, start, end, window);
 						}
+						if (selectedAlg == "Breadth First")
+						{
+							generateGrid = std::make_shared<BreadthFirstSearch>(grid, start, end, window);
+						}
 						std::cout << "Visualizing" << std::endl;
 						generateGrid->Visualize(init);
 					}

@@ -9,10 +9,12 @@
 #include <map>																			// for connected nodes and edges
 #include <tuple>																		// used for graph's indices
 #include <stack>																		// used for depth first search algorithm
+#include <queue>																		// used for breadth first search algorithm
 #include <utility>																		// for representing an edge (std::pair)
 #include <climits>																		// for interpreting infinity (LLONG_MAX)
 
-typedef std::vector<std::vector<bool>> vect2d_bool;										// alias for 2d vector of bools 
+typedef std::vector<std::vector<bool>> vect2d_bool;										// alias for 2d vector of bools
+typedef std::vector<bool> vect_bool;													// alias for vector of bools
 typedef std::vector<int64_t> vect_int;													// alias for vector of ints
 typedef std::pair<int64_t, int64_t> pair;												// alias for vector
 

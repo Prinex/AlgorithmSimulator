@@ -13,12 +13,12 @@ Dijkstra::Dijkstra(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf:
 	{
 		for (uint64_t j = 0; j < grid.at(i).size(); j++)
 		{ 
-			// combinations of columns
-			if (i != grid.size() && j != grid.at(i).size() - 1)
-				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i).at(j + 1).GetWeight(), LLONG_MAX);
 			// combinations of rows
 			if (i != grid.size() - 1 && j != grid.at(i).size())
 				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i + 1).at(j).GetWeight(), LLONG_MAX);
+			// combinations of columns
+			if (i != grid.size() && j != grid.at(i).size() - 1)
+				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i).at(j + 1).GetWeight(), LLONG_MAX);
 		}
 	}
 }

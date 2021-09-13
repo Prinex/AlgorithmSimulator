@@ -29,8 +29,8 @@ private:
 	vect_int unpoppedQ;
 public:
 	/**
-	 * GRAPH class constructor + initialization list
-	 * input: no. of vertices for the graph
+	 * DIJKSTRA class constructor + initialization list
+	 * input: the start point and the end point for pathfinding
 	 * Initializes the graph,
 	 */
 	Dijkstra(int64_t s, int64_t e) :

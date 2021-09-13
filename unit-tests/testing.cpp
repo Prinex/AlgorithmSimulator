@@ -9,6 +9,7 @@
 #include "SortingAlgorithms/HeapSort.hpp"
 #include "PathFindingAlgorithms/Dijkstra.hpp"
 #include "PathFindingAlgorithms/DepthFirstSearch.hpp"
+#include "PathFindingAlgorithms/BreadthFirstSearch.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -527,3 +528,41 @@ SCENARIO( "Finding the shortest path using Depth First Search Algorithm")
 		}
 	}
 } 
+
+SCENARIO( "Finding the shortest path using Breadth First Search Algorithm")
+{
+	GIVEN( "some instances of the Breadth First Search algorithm with different starting and ending points")
+	{
+		BreadthFirstSearch d = BreadthFirstSearch(1, 93);
+		vect_int r = d.BFS();
+		vect_int solution = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 52, 93 };
+	
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN( "returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = BreadthFirstSearch(903, 472);
+			vect_int r = d.BFS();
+			vect_int solution = { 903, 862, 821, 780, 739, 698, 657, 616, 575, 534, 493, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472 };
+
+			THEN( "returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+	}
+}

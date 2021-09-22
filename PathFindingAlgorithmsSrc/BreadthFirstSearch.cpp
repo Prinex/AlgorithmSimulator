@@ -3,31 +3,10 @@
 
 
 BreadthFirstSearch::BreadthFirstSearch(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win) :
-	PathFindingAlgorithms(g, s, e, win)
+	Dijkstra(g, s, e, win)
 {
-	int size = rows * columns;														// size of nodes is rows by cols
-	dist = vect_int(size, LLONG_MAX);												// all nodes set to 'inf'
-	previous = vect_int(size, LLONG_MAX);											// nothing visited												
+	// initialize all nodes as not visited
 	visited = vect_bool(size, false);
-	// initializing the edges and the weights according to the grid / 2d vector
-	for (int64_t i = 0; i < grid.size(); i++)
-	{
-		for (int64_t j = 0; j < grid.at(i).size(); j++)
-		{
-			// combinations of columns
-			if (i != grid.size() && j != grid.at(i).size() - 1)
-				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i).at(j + 1).GetWeight(), LLONG_MAX);
-			// combinations of rows
-			if (i != grid.size() - 1 && j != grid.at(i).size())
-				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i + 1).at(j).GetWeight(), LLONG_MAX);
-		}
-	}
-}
-
-void BreadthFirstSearch::add_edge(int64_t from_node, int64_t to_node, int64_t weight)
-{															                        // bidirectional
-	edges[from_node].push_back(to_node);					                        // append the
-	edges[to_node].push_back(from_node);					                        // connected nodes 
 }
 
 int BreadthFirstSearch::Visualize(std::unique_ptr<Interface>& init)

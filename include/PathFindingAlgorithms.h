@@ -4,15 +4,14 @@
 #include "Algorithms.h"
 
 
-
-
 class Dijkstra : public PathFindingAlgorithms
 {
-private:
+protected:
 	vect_int dist;								// records distances between nodes
 	vect_int previous;							// records previous visited nodes
 	vect_int Q;									// records the unvisited nodes
 	vect_int unpoppedQ;							// records all nodes
+	int64_t lastVisited = 0;					// integer for recording the last visited node
 public:
 	/**
 	 * DIJKSTRA class constructor + initialization list
@@ -95,12 +94,10 @@ public:
  * in fact, bfs uses same approach as dijkstra, i.e., keeping count of 
  * previous visited nodes and distances from one node to another
  */ 
-class BreadthFirstSearch : public PathFindingAlgorithms
+class BreadthFirstSearch : public Dijkstra
 {
 private:
 	std::queue<int64_t> Q;								// records the unvisited nodes
-	vect_int dist;										// records distances between nodes	
-	vect_int previous;									// records previous visited nodes
 	vect_bool visited;									// records the status of a node (visited / unvisited - true / false)
 public:
 	/**
@@ -109,14 +106,6 @@ public:
 	 * Sets all nodes to unvisited
 	 */
 	BreadthFirstSearch(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
-	/**
-	 * ADD EDGE
-	 * input: and the instance of the window
-	 * output: none
-	 * Inserts an edge and its weight to corresponing data structures
-	 * to the graph
-	 */
-	void add_edge(int64_t from_node, int64_t to_node, int64_t weight);
 	/**
 	 * VISUALIZE pure virtual function for BREADTH FIRST SEARCH
 	 * input: the instance of the window

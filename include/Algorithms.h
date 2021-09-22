@@ -89,7 +89,8 @@ class PathFindingAlgorithms
 {
 protected:
 	int rows = 23;							// size of the grid is rows x columns as specified : 
-	int columns = 41;						// 23 x 41 
+	int columns = 41;						// 23 x 41
+	int size = rows * columns;				// size of grid / rows by columns
 	int64_t start;		    				// start point
 	int64_t end;      						// end point
 	sf::RenderWindow& window;				// initialization of the window

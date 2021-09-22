@@ -1,10 +1,10 @@
 #include "include/PathFindingAlgorithms.h"
 #include "include/Interface.h"
 
+
 Dijkstra::Dijkstra(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win) :
 	PathFindingAlgorithms(g, s, e, win)
 {
-	int size = rows * columns;														// size of nodes is rows by cols
 	dist = vect_int(size, LLONG_MAX);												// all nodes set to 'inf'
 	previous = vect_int(size, LLONG_MAX);											// nothing visited
 
@@ -43,12 +43,6 @@ int Dijkstra::Visualize(std::unique_ptr<Interface>& init)
 			std::cout << "There is no route to destination" << std::endl;
 			break;												                    // stop
 		}
-		if (unpoppedQ.at(u) == end)													// destination reached
-		{
-			std::cout << "Destination reached" << std::endl;
-			break;												                    // stop
-		}
-		
 		int64_t uNode = unpoppedQ.at(u);							                // the current node
 		Q.erase(Q.begin() + getPopPosition(uNode));				                    // pop the visited node
 		vect_int neighbours = getUnivisitedNodes(uNode);		                    // find all neighbours of the current visited node
@@ -76,9 +70,20 @@ int Dijkstra::Visualize(std::unique_ptr<Interface>& init)
 				dist.at(getIndex(neighbours[v])) = alt;						        // assign alt to neighbour distance
 				previous.at(getIndex(neighbours[v])) = uNode;					    // assign u to previous[v]	
 			}
+			lastVisited = neighbours.at(v);											// record the last visited node
 			// visualizing effect of finding the neighbours of a node / cell
 			weightIdx = FindWeight(neighbours.at(v));
 			grid.at(std::get<0>(weightIdx)).at(std::get<1>(weightIdx)).SetShapeColor(sf::Color::Magenta);
+			
+			if (lastVisited == end)													// destination reached
+			{
+				std::cout << "Destination reached" << std::endl;
+				break;												                // stop
+			}
+		}
+		if (lastVisited == end)														// destination reached
+		{
+			break;												                    // stop
 		}
 	}
 	// CONSTRUCT THE SOLUTION

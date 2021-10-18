@@ -10,6 +10,7 @@
 #include "PathFindingAlgorithms/Dijkstra.hpp"
 #include "PathFindingAlgorithms/DepthFirstSearch.hpp"
 #include "PathFindingAlgorithms/BreadthFirstSearch.hpp"
+#include "PathFindingAlgorithms/AStar.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -562,6 +563,47 @@ SCENARIO( "Finding the shortest path using Breadth First Search Algorithm")
 				// checking if there are the same nodes
 				for (uint32_t i = 0; i < solution.size(); i++)
 					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+	}
+}
+
+SCENARIO( "Finding the shortest path using A* algorithm")
+{
+	GIVEN( "some instances of the A* algorithm with different starting and ending points")
+	{
+		AStar d = AStar(0, 513);
+		std::tuple<vect_int, int64_t> r = d.AS();
+		std::tuple<vect_int, int64_t> solution({ 0, 42, 84, 126, 168, 210, 252, 294, 336, 378, 420, 462, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513 }, 1);
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN( "returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking the sizes
+				REQUIRE(std::get<0>(r).size() == std::get<0>(solution).size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = AStar(857, 130);
+			std::tuple<vect_int, int64_t> r = d.AS();
+			std::tuple<vect_int, int64_t> solution({ 857, 815, 773, 731, 689, 647, 605, 563, 521, 479, 437, 395, 353, 311, 269, 227, 185, 143, 142, 141, 140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130 }, 1);
+
+			THEN( "returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking the sizes
+				REQUIRE(std::get<0>(r).size() == std::get<0>(solution).size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
 			}
 		}
 	}

@@ -15,10 +15,10 @@ Dijkstra::Dijkstra(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf:
 		{ 
 			// combinations of rows
 			if (i != grid.size() - 1 && j != grid.at(i).size())
-				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i + 1).at(j).GetWeight(), LLONG_MAX);
+				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i + 1).at(j).GetWeight());
 			// combinations of columns
 			if (i != grid.size() && j != grid.at(i).size() - 1)
-				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i).at(j + 1).GetWeight(), LLONG_MAX);
+				add_edge(grid.at(i).at(j).GetWeight(), grid.at(i).at(j + 1).GetWeight());
 		}
 	}
 }
@@ -127,12 +127,10 @@ int Dijkstra::Visualize(std::unique_ptr<Interface>& init)
 	return PrintPath(init);
 }
 
-void Dijkstra::add_edge(int64_t from_node, int64_t to_node, int64_t weight)
+void Dijkstra::add_edge(int64_t from_node, int64_t to_node)
 {															                        // bidirectional
 	edges[from_node].push_back(to_node);					                        // append the
 	edges[to_node].push_back(from_node);					                        // connected nodes 
-	weights[pair(from_node, to_node)] = weight;				                        // append the weigths for 
-	weights[pair(to_node, from_node)] = weight;				                        // the edge
 }
 
 int Dijkstra::findSmallestNode()

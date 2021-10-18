@@ -33,7 +33,7 @@ public:
 	 * Inserts an edge and its weight to corresponing data structures
 	 * to the graph
 	 */
-	void add_edge(int64_t from_node, int64_t to_node, int64_t weight);
+	void add_edge(int64_t from_node, int64_t to_node);
 	/**
 	 * FIND SMALLEST NODE
 	 * input: a source node, a destination node and a weight 
@@ -90,7 +90,8 @@ public:
 };
 
 /**
- * note: bfs is really similar to dijkstra in finding the shortest path
+ * Notes about BFS:
+ * BFS is really similar to dijkstra in finding the shortest path
  * in fact, bfs uses same approach as dijkstra, i.e., keeping count of 
  * previous visited nodes and distances from one node to another
  */ 
@@ -101,7 +102,7 @@ private:
 	vect_bool visited;									// records the status of a node (visited / unvisited - true / false)
 public:
 	/**
-	 * BREADTH FIRST SEARCH class constructor + initialization list
+	 * BREADTH FIRST SEARCH class constructor 
 	 * input: the graph operated by dijkstra, the start and end nodes, and the instance of the window
 	 * Sets all nodes to unvisited
 	 */
@@ -113,6 +114,60 @@ public:
 	 * Finds the shortest path between 2 nodes specified
 	 */
 	int Visualize(std::unique_ptr<Interface>& init);
+};
+
+/**
+ * Notes for AStar algorithm:
+ * AStar is like an extension to Dijkstra
+ * It uses heuristics to guide its search, i.e., calculating cost for a node / cell (G, F and H costs), 
+ * achieving a better performance than Dijkstra
+ */
+class AStar : public Dijkstra
+{
+private:
+	vect_int gScore;
+	vect_int hScore;
+	vect_int fScore;
+public:
+	/**
+	 * ASTAR class constructor + initialization list
+	 * input: the graph operated by dijkstra, the start and end nodes, and the instance of the window
+	 * Initializes the edges of the graph, all costs of a node (f, g, h) are set to "infinity", and all nodes set to unvisited
+	 */
+	AStar(std::vector<std::vector<Button>> g, int64_t s, int64_t e, sf::RenderWindow& win);
+	/**
+	 * VISUALIZE pure virtual function for BREADTH FIRST SEARCH
+	 * input: the instance of the window
+	 * output: a function printing the final form of the grid on the screen
+	 * Finds the shortest path between 2 nodes specified
+	 */
+	int Visualize(std::unique_ptr<Interface>& init);
+	/**
+	 * GCOST heuristic function 
+	 * input: two integers representing the current node and neighbour node
+	 * output: distance from the starting node
+	 * It calculates the distance from the starting node
+	 */
+	int64_t GCost(int64_t current, int64_t neighbour);
+	/**
+	 * HCOST heuristic function
+	 * input: a neighbour node
+	 * output: the distance from the end node
+	 * It calculates the distance from the end node
+	 */
+	int64_t HCost(int64_t point);
+	/**
+	 * FCOST heuristic function
+	 * input: two integers representing the current node a neighbour node
+	 * output: the sum of G and H costs
+	 * It calculates the total cost of G and H costs
+	 */
+	int64_t FCost(int64_t GCost, int64_t HCost);
+	/** 
+	 * findSmallestFNode is adapted from Dijkstra
+	 * It look for smallest F cost
+	*/
+	int findSmallestFNode();
 };
 
 #endif // PATHFINDINGALGORITHMS_H_INCLUDED

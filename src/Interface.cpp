@@ -285,7 +285,7 @@ Interface::Interface()
 	int yPos = 70;
 	int rows = 23;
 	int columns = 41;
-	int64_t countCell = 1;
+	int64_t countCell = 0;
 	for (int i = 0; i < rows; i++)
 	{
 		std::vector<Button> temp;
@@ -319,10 +319,10 @@ Interface::Interface()
 	depthFirstAlgB.SetFont(font);
 	depthFirstAlgB.Positionate({ 200, 200 });
 
-	pathAlgsButtons.push_back(aAsteriskAlgB);
 	pathAlgsButtons.push_back(dijsktraAlgB);
 	pathAlgsButtons.push_back(breadthFirstAlgB);
 	pathAlgsButtons.push_back(depthFirstAlgB);
+	pathAlgsButtons.push_back(aAsteriskAlgB);
 
 	// Initializing the main window first and then the main loop
 
@@ -731,20 +731,24 @@ int Interface::ConfigGrid(std::unique_ptr<Interface>& init)
 					}
 					if ((*it).DetectButton(window) == true && (*it).GetButton() == "Visualize")
 					{
-						if (start == 0 && end != 0)
+						if (start == -1 && end != -1)
 						{
 							std::cerr << "The start point was not set" << std::endl;
 							break;
 						}
-						if (start != 0 && end == 0)
+						if (start != -1 && end == -1)
 						{
 							std::cerr << "The end point was not set" << std::endl;
 							break;
 						}
-						if (start == 0 && end == 0)
+						if (start == -1 && end == -1)
 						{
 							std::cerr << "The start and end point were not set" << std::endl;
 							break;
+						}
+						if (selectedAlg == "A*")
+						{
+							generateGrid = std::make_shared<AStar>(grid, start, end, window);
 						}
 						if (selectedAlg == "Dijkstra")
 						{
@@ -822,13 +826,17 @@ int Interface::SetGrid(std::unique_ptr<Interface>& init)
 					case sf::Event::MouseButtonPressed:
 						// for setting start and end point should allow only one time by getting the coordinates
 						// setting the start point
-						if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetStartPoint() == false && start == 0)
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetStartPoint() == false && start == -1)
 						{
 							if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetEndPoint() == false)
 							{
 								(*itj).SetStartPoint(true);
 								(*itj).SetShapeColor(sf::Color::Green);
 								start = (*itj).GetWeight();
+							}
+							if ((*itj).GetEndPoint() == true && start != -1)
+							{
+								std::cerr << "Cannot place the start point on the end point" << std::endl;
 							}
 							break;
 						}
@@ -838,18 +846,22 @@ int Interface::SetGrid(std::unique_ptr<Interface>& init)
 							{
 								(*itj).SetStartPoint(false);
 								(*itj).SetShapeColor(sf::Color(193, 222, 201));
-								start = 0;
+								start = -1;
 							}
 							break;
 						}
 						// setting the end point
-						if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetEndPoint() == false && end == 0)
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && (*itj).GetEndPoint() == false && end == -1)
 						{
 							if ((*itj).DetectButton(window) == true && (*itj).GetWall() == false && (*itj).GetStartPoint() == false)
 							{
 								(*itj).SetEndPoint(true);
 								(*itj).SetShapeColor(sf::Color::Red);
 								end = (*itj).GetWeight();
+							}
+							if ((*itj).GetStartPoint() == true && end != -1)
+							{
+								std::cerr << "Cannot place the end point on the start point" << std::endl;
 							}
 							break;
 						}
@@ -859,7 +871,7 @@ int Interface::SetGrid(std::unique_ptr<Interface>& init)
 							{
 								(*itj).SetEndPoint(false);
 								(*itj).SetShapeColor(sf::Color(193, 222, 201));
-								end = 0;
+								end = -1;
 							}
 							break;
 						}

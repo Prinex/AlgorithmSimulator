@@ -140,7 +140,7 @@ PathFindingAlgorithms::PathFindingAlgorithms(sf::RenderWindow& win) :
 	Button rect(sf::Color(193, 222, 201), sf::Vector2f(30, 30));
 	int xPos = 4;
 	int yPos = 70;
-	int64_t countCell = 1;
+	int64_t countCell = 0;
 	for (int i = 0; i < rows; i++)
 	{
 		std::vector<Button> temp;

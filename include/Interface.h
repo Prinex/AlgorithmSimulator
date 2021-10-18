@@ -144,8 +144,8 @@ protected:
 	int inputMax;
 	int inputEls;
 
-	int64_t start = 0;
-	int64_t end = 0;
+	int64_t start = -1;			// default start and
+	int64_t end = -1;			// end points
 
 	// Buttons for the configuration bar of pathfinding algorithms which will help us to find the shortest path 
 	// on the grid and clear the grid

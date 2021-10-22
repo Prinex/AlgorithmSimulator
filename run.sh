@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # building the project
 # run the project accordingly to the OS' specified above
@@ -8,6 +8,8 @@ if [[ "$OSTYPE" == "msys"* ]]; then
 	cmake --build .
 elif [[ "$OSTYPE" == "linux"* ]]; then
 	make
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    make all
 fi
 
 # if running from an executable file
@@ -23,6 +25,9 @@ if [[ "$OSTYPE" == "msys"* ]]; then
 	./AlgorithmSimulator.exe
 elif [[ "$OSTYPE" == "linux"* ]]; then
 	cd ./build/bin/
-	./AlgorithmSimulator.exe
+	./AlgorithmSimulator
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    cd ./build/bin/
+    ./AlgorithmSimulator
 fi
 

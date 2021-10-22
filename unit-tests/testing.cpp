@@ -1,13 +1,16 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "SortingAlgorithms/BubbleSort.h"
-#include "SortingAlgorithms/SelectionSort.h"
-#include "SortingAlgorithms/InsertionSort.h"
-#include "SortingAlgorithms/QuickSort.h"
-#include "SortingAlgorithms/MergeSort.h"
-#include "SortingAlgorithms/HeapSort.h"
-
+#include "SortingAlgorithms/BubbleSort.hpp"
+#include "SortingAlgorithms/SelectionSort.hpp"
+#include "SortingAlgorithms/InsertionSort.hpp"
+#include "SortingAlgorithms/QuickSort.hpp"
+#include "SortingAlgorithms/MergeSort.hpp"
+#include "SortingAlgorithms/HeapSort.hpp"
+#include "PathFindingAlgorithms/Dijkstra.hpp"
+#include "PathFindingAlgorithms/DepthFirstSearch.hpp"
+#include "PathFindingAlgorithms/BreadthFirstSearch.hpp"
+#include "PathFindingAlgorithms/AStar.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -34,6 +37,7 @@ std::vector<int> fillUpVector(int min, int max, int units)
 	return seq;
 }
 
+// testing sorting algorithms
 SCENARIO( "Bubble Sort can be used with an empty or non-empty vector")
 {
 	GIVEN( "An empty vector")
@@ -445,6 +449,161 @@ SCENARIO( "Sorting with Heap Sort")
 				REQUIRE(sorted == seqCpy);
 				REQUIRE(seq.size() == 327);
 				REQUIRE(sorted.size() == seqCpy.size());
+			}
+		}
+	}
+}
+
+// testing the pathfinding algorithms
+SCENARIO( "Finding the shortest path using Dijkstra Algorithm")
+{
+	GIVEN( "some instances of the Dijkstra algorithm with different starting and ending points")
+	{
+		Dijkstra d = Dijkstra(1, 474);
+		std::tuple<vect_int, int64_t> r = d.dijkstra();
+		std::tuple<vect_int, int64_t> solution({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 64, 105, 146, 187, 228, 269, 310, 351, 392, 433, 474}, 33);
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN("returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = Dijkstra(899, 47);
+			std::tuple<vect_int, int64_t> r = d.dijkstra();
+			std::tuple<vect_int, int64_t> solution({899, 858, 817, 776, 735, 694, 653, 612, 571, 530, 489, 448, 407, 366, 325, 284, 243, 202, 161, 120, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 
+													68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47}, 52);
+												
+			THEN( "returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
+			}
+		}
+	}
+} 
+
+SCENARIO( "Finding the shortest path using Depth First Search Algorithm")
+{
+	GIVEN( "some instances of the Depth First Search algorithm with different starting and ending points")
+	{
+		DepthFirstSearch d = DepthFirstSearch(1, 3);
+		vect_int r = d.DFS();
+		vect_int solution = { 1, 2, 3};
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN("returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = DepthFirstSearch(1, 10);
+			vect_int r = d.DFS();
+			vect_int solution = { 1, 2, 3, 6, 9, 12, 11, 8, 5, 4, 7, 10 };
+			
+			THEN( "returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+	}
+} 
+
+SCENARIO( "Finding the shortest path using Breadth First Search Algorithm")
+{
+	GIVEN( "some instances of the Breadth First Search algorithm with different starting and ending points")
+	{
+		BreadthFirstSearch d = BreadthFirstSearch(1, 93);
+		vect_int r = d.BFS();
+		vect_int solution = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 52, 93 };
+	
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN( "returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = BreadthFirstSearch(903, 472);
+			vect_int r = d.BFS();
+			vect_int solution = { 903, 862, 821, 780, 739, 698, 657, 616, 575, 534, 493, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472 };
+
+			THEN( "returns the shortest path specifying the nodes")
+			{
+				// check if there are the same amount of nodes
+				REQUIRE(r.size() == solution.size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < solution.size(); i++)
+					REQUIRE(r.at(i) == solution.at(i));
+			}
+		}
+	}
+}
+
+SCENARIO( "Finding the shortest path using A* algorithm")
+{
+	GIVEN( "some instances of the A* algorithm with different starting and ending points")
+	{
+		AStar d = AStar(0, 513);
+		std::tuple<vect_int, int64_t> r = d.AS();
+		std::tuple<vect_int, int64_t> solution({ 0, 42, 84, 126, 168, 210, 252, 294, 336, 378, 420, 462, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513 }, 1);
+
+		WHEN( "Finding the shortest path of a short distance between two points")
+		{
+			THEN( "returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking the sizes
+				REQUIRE(std::get<0>(r).size() == std::get<0>(solution).size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
+			}
+		}
+		AND_WHEN( "Finding the shortest path of a long distance between two points")
+		{
+			d = AStar(857, 130);
+			std::tuple<vect_int, int64_t> r = d.AS();
+			std::tuple<vect_int, int64_t> solution({ 857, 815, 773, 731, 689, 647, 605, 563, 521, 479, 437, 395, 353, 311, 269, 227, 185, 143, 142, 141, 140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130 }, 1);
+
+			THEN( "returns the shortest path specifying the nodes and the total cost")
+			{
+				// checking the sizes
+				REQUIRE(std::get<0>(r).size() == std::get<0>(solution).size());
+				// checking if there are the same nodes
+				for (uint32_t i = 0; i < std::get<0>(r).size(); i++)
+					REQUIRE(std::get<0>(r).at(i) == std::get<0>(solution).at(i));
+				// checking if the cost is the same
+				REQUIRE(std::get<1>(r) == std::get<1>(solution));
 			}
 		}
 	}

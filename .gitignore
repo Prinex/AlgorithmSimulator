@@ -2,6 +2,8 @@
 # Prerequisites
 *.d
 
+.idea/
+
 # directories
 unit-tests/*.o
 unit-tests/*.obj

@@ -12,8 +12,6 @@
 
 
 #include "Algorithms.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include <SFML/System/String.hpp>
 #include <iostream>
 #include <filesystem>
@@ -34,7 +32,12 @@ class Button
 {
 protected:
 	sf::Text text;					// the text which will be place in the button
-	sf::RectangleShape button;		// a rectangle object 
+	sf::RectangleShape button;		// a rectangle object
+	// bools for detecting grid's cells for start and end point and obstacles (simple cells)
+	bool wall = false;
+	bool startPoint = false;
+	bool endPoint = false;
+	int64_t weight;
 public:
 	// Button default constructor
 	Button();
@@ -45,6 +48,13 @@ public:
 	 *  @param shapeSize - a vector containing the size of the rectangle (width, height) 
 	 */
 	Button(std::string txt, sf::Color txtColor, int txtSize, sf::Color shapeColor, sf::Vector2f shapeSize);
+
+	/** Another constructor that will allow us to create simple square objects for creating a grid
+	 *  that works with the pathfinding algorithms
+	 *  @param shapeColor - the color of the rectangle
+	 *  @param shapeSize - a vector containing the size of the rectangle (width, height) 
+	 */
+	Button(sf::Color shapeColor, sf::Vector2f shapeSize);
 
 	/** Positionate method will set the position on (x, y) axis
 	 *  @param size - a vector consisting of 2 float numbers
@@ -79,6 +89,26 @@ public:
 	 */
 	void SetButton(const sf::String& str);
 
+	/** Setter and Getter methods for wall, startPoint, and endPoint attributes 
+	 *  used for configuring particular cells as a wall / obstacle, and a start or end point
+	 *  on the grid
+	 */
+	void SetWall(bool w);
+
+	bool GetWall() const;
+
+	void SetStartPoint(bool s);
+
+	bool GetStartPoint() const;
+
+	void SetEndPoint(bool e);
+
+	bool GetEndPoint() const;
+
+	void SetWeight(int64_t weight);
+
+	int64_t GetWeight() const;
+
 	/** Draw draws the button on the screen
 	 *  @param window - a referenced object to the first initialization of the window object
 	 */
@@ -96,7 +126,7 @@ protected:
 	sf::Font font;
 	sf::Text hint;
 	
-	// Buttons for the configuration bar which will help us to generate, sort and print the sequence
+	// Buttons for the configuration of sorting algorithms bar which will help us to generate, sort and print the sequence
 	Button clrScrB;				// clears the screen
 	Button generateSeqB;		// generates a sequence
 	Button sortAlgB;			// sorts a sequence
@@ -109,19 +139,33 @@ protected:
 	Button minusElsB;			// decrease for how many units to generate
 	Button outputElsB;			// output for the number of units
 
-	// integers for min, max and the number of units
+	// integers for min, max and the number of units for the sorting algorithms configuration bar / GUI
 	int inputMin;
 	int inputMax;
 	int inputEls;
-	
+
+	int64_t start = -1;			// default start and
+	int64_t end = -1;			// end points
+
+	// Buttons for the configuration bar of pathfinding algorithms which will help us to find the shortest path 
+	// on the grid and clear the grid
+	Button set;
+	Button visualize;
+	Button resetGrid;
+
 	std::string algorithmType;		// will help us with the menu and navigating feature
 	sf::String selectedAlg;			// same as algorithmType
 	// generateSeq object (parent class) will initialize the algorithm type object (a child class)
 	std::shared_ptr<SortingAlgorithms> generateSeq;	
-	std::vector<Button> menuButtons;		// a vector containin the menu buttons
-	std::vector<Button> configButtons;		// vector for configuration bar buttons
-	std::vector<Button> sortingAlgsButtons;		// vector for sorting algorithms menu
-	std::vector<Button> pathAlgsButtons;		// vector for pathfinding algorithms menu
+	// generateGrid object (parent class) will initialize the algorithm type object (a child class)
+	std::shared_ptr<PathFindingAlgorithms> generateGrid;
+	std::vector<std::vector<Button>> grid;				// a vector which will be the grid used for pathfinding algorithms, 
+														// to configure it for a specific pathfinding algorithm
+	std::vector<Button> menuButtons;					// a vector containing the menu buttons
+	std::vector<Button> configButtonsSortingAlgs;		// vector for configuration bar buttons of sorting algorithms
+	std::vector<Button> configButtonsPathFindingAlgs;	// vector for configuration bar buttons of pathfinding algorithms
+	std::vector<Button> sortingAlgsButtons;				// vector for sorting algorithms menu
+	std::vector<Button> pathAlgsButtons;				// vector for pathfinding algorithms menu
 
 public:
 	// Interface default constructor
@@ -136,20 +180,30 @@ public:
 	 *  @return back where it was called last time (menu feature / navigating)
 	 */
 	int SortingAlgMenu(std::unique_ptr<Interface>& init);
-	/** SortingAlgMenu() 
-	 *  @param init - a referenced object to the first initialization of the window object
-	 *  @return back where it was called last time (menu feature / navigating)
-	 */
-	int PathAlgMenu(std::unique_ptr<Interface>& init);
 	/** PathAlgMenu initializes the pathfinding algorithms menu and its buttons
 	 *  @param init - a referenced object to the first initialization of the window object
 	 *  @return back where it was called last time (menu feature / navigating)
 	 */
-	int ConfigBar(std::unique_ptr<Interface>& init);
+	int PathAlgMenu(std::unique_ptr<Interface>& init);
 	/** ConfigBar initializes the configuration bar and its menu buttons
 	 *  @param init - a referenced object to the first initialization of the window object
 	 *  @return back where it was called last time (menu feature / navigating)
 	 */
+	int ConfigBar(std::unique_ptr<Interface>& init);
+	/** ConfigGrid will allow us to configure the grid for an algorithm specified
+	 *	It will allow us to select a start and an end point for a pathfinding algorithm
+	 *	and to place obstacles
+	 *	@param init - a referenced object to the first initialization of the window object
+	 *  @param initGrid - a referenced object used to the initialized grid used for making different 
+	 *	configuration for the pathfinding algorithms
+	 *	@return back where it was called last time (menu feature / navigating)
+	 */
+	int ConfigGrid(std::unique_ptr<Interface>& init);
+	/** SetGrid will allow us to configured grid for an algorithm specified
+	 *  @param init - a referenced object to the first initialization of the window object
+	 *  @return back where it was called last time (menu feature / navigating)
+	 */
+	int SetGrid(std::unique_ptr<Interface>& init);
 };
 
 

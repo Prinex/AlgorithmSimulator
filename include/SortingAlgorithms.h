@@ -3,8 +3,6 @@
 
 
 #include "Algorithms.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 
 
 

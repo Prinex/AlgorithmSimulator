@@ -777,9 +777,8 @@ int Interface::ConfigGrid(std::unique_ptr<Interface>& init)
 								(*itj).SetShapeColor(sf::Color(193, 222, 201));
 							}
 						}
-						start = 0;
-						end = 0;
-						std::cout << "Reset" << std::endl;
+						start = end = -1;
+						std::cout << "Resetted" << std::endl;
 					}
 					break;
 				case sf::Event::KeyPressed:

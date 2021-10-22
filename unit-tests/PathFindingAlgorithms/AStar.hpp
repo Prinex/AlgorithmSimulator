@@ -179,8 +179,8 @@ public:
 		int neighbourX = std::get<0>(neighbourXY);
 		int neighbourY = std::get<1>(neighbourXY);
 
-		int dx = std::abs(std::pow((neighbourX - currentX), 2));
-		int dy = std::abs(std::pow((neighbourY - currentY), 2));
+		int dx = std::abs(neighbourX - currentX);
+		int dy = std::abs(neighbourY - currentY);
 
 		int64_t G = 1 * (dx + dy) + (sqrt(2) - 2 * 1) * std::min(dx, dy);
 

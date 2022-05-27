@@ -1,5 +1,5 @@
 > AlgorithmSimulator is a cross-platform project for visualizing sorting and pathfinding algorithms.
-> This project consists of two majors parts: One part of the project deals with sorting algorithms and another with pathfinding algorithms which is under processing.
+> This project consists of two majors parts: One part of the project deals with sorting algorithms and another with pathfinding algorithms.
 
 ### Beforehand
 

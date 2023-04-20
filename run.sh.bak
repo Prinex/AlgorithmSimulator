@@ -12,6 +12,7 @@ fi
 # build the project using another separate script
 ./build.sh
 
+
 # building the project
 # run the project accordingly to the OS' specified above
 cd build

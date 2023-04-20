@@ -9,7 +9,7 @@ mkdir build
 cd build
 # build the project accordingly to the OS' specified above
 if [[ "$OSTYPE" == "msys"* ]]; then
-	cmake .. -G "Visual Studio 17 2022"
+	cmake .. -G "Visual Studio 16 2019"
 elif [[ "$OSTYPE" == "linux"* ]]; then
 	cmake .. -G "Unix Makefiles"
 elif [[ "$OSTYPE" == "darwin"* ]]; then

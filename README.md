@@ -5,7 +5,7 @@
 
 * You need to:
 
-1. To have VS {your installed version} installed to generate and build the project if your machine has Windows running (of course that you can try to make it work with something else like MinGW makefiles).
+1. To have VS {your installed version} installed to generate and build the project if your machine has Windows running (of course that you can try to make it work with something else like MinGW makefiles for building and running the project).
 2. To have cmake 3.15 version or greater installed.
 3. To have Git Bash or Linux terminal on Windows to run the Shell script files. On Linux and macOS you can run them without any problem (Unix-like systems).
 

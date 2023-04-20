@@ -1,4 +1,4 @@
-![passing-badge](https://img.shields.io/badge/Visual%20Studio%2017%202022%20build-passing-green?style=plastic&logo=appveyor)
+![passing-win](https://img.shields.io/badge/Visual%20Studio%2017%202022%20build-passing-green?style=plastic&logo=appveyor) ![passing-unix](https://img.shields.io/badge/Unix%20Makefiles-passing-green)
 
 > AlgorithmSimulator is a cross-platform project for visualizing sorting and pathfinding algorithms.
 > This project consists of two majors parts: One part of the project deals with sorting algorithms and another with pathfinding algorithms.

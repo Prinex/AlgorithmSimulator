@@ -5,7 +5,7 @@
 
 * You need to:
 
-1. To have VS 2019 installed to generate and build the project if your machine has Windows running.
+1. To have VS {your installed version} installed to generate and build the project if your machine has Windows running.
 2. To have cmake 3.15 version or greater installed.
 3. To have Git Bash or Linux terminal on Windows to run the Shell script files. On Linux and macOS you can run them without any problem (Unix-like systems).
 
@@ -16,13 +16,13 @@
 To do this, run the setupSFML.sh script file which will extract the library's directory to the current path. 
 2. To generate and build the project you will use the build.sh script file which will automatically build the project according to one of the following OS' that you use on your machine:
 	* Windows
-		* On Windows the build option of the project is Visual Studio 16 2019.
+		* On Windows the build option of the project should be something like Visual Studio {a version number} {your installed version}.
 	* Linux 
 		* On Linux we use Unix Makefiles as the generator of the project.
 	* macOS
 		* On macOS, again we use Makefiles as the project's generator.
 3. To run the project without any minor complications, use the run.sh script file.
-	* On Window you can also run the project using VS 2019 IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS 2019 solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
+	* On Window you can also run the project using VS {your installed version} IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS {your installed version} solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
 
 ### GUI for the Sorting Algorithms
 

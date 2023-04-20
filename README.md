@@ -82,10 +82,10 @@ To do this, run the setupSFML.sh script file which will extract the library's di
 
 ![Dijkstra](/media/dijkDemo.gif) 
 
-* BFS
+* Breadth First Search (BFS)
 
 ![BFS](/media/bfsDemo.gif)
 
-* DFS
+* Depth First Search (DFS)
 
 ![DFS](/media/dfsDemo.gif)

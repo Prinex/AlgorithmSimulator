@@ -63,14 +63,10 @@ int SortingAlgorithms::Print(std::unique_ptr<Interface>& init)
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			switch (event.type)
-			{
-			case sf::Event::KeyPressed:
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				{
-					return init->ConfigBar(init);
-				}
-			}
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                return init->ConfigBar(init);
+            }
 		}
 		window.clear(sf::Color::White);
 		for (std::vector<sf::RectangleShape>::iterator itp = sequence.begin(); itp != sequence.end(); itp = std::next(itp))
@@ -109,14 +105,10 @@ int SortingAlgorithms::PrintSortedSeq(std::unique_ptr<Interface>& init)
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			switch (event.type)
-			{
-			case sf::Event::KeyPressed:
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				{
-					return init->ConfigBar(init);
-				}
-			}
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                return init->ConfigBar(init);
+            }
 		}
 		window.clear(sf::Color::White);
 		for (std::vector<sf::RectangleShape>::iterator it = sequence.begin(); it != sequence.end(); it = std::next(it))
@@ -186,14 +178,10 @@ int PathFindingAlgorithms::PrintPath(std::unique_ptr<Interface>& init)
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			switch (event.type)
-			{
-			case sf::Event::KeyPressed:
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				{
-					return init->ConfigGrid(init);
-				}
-			}
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                return init->ConfigGrid(init);
+            }
 		}
 		window.clear(sf::Color::White);
 		for (std::vector<std::vector<Button>>::iterator iti = grid.begin(); iti < grid.end(); iti = std::next(iti))

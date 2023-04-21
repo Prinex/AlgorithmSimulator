@@ -16,6 +16,9 @@ SFML_Win/
 SFML_Linux/
 SFML_macOS/
 
+# backup script files
+*.sh.bak
+
 # Compiled Object files
 *.slo
 *.lo

@@ -5,7 +5,8 @@ SFML_MAC=./SFML_macOS/
 SFML_LINUX=./SFML_Linux/
 
 # unzip SFML library using a separate script
-if [ ! -d "$SFML_WIN" ] && [ ! -d "$SFML_MAC"] && [ ! -d "$SFML_LINUX"]; then
+if [ ! -d "$SFML_WIN" ] && [ ! -d "$SFML_MAC" ] && [ ! -d "$SFML_LINUX" ]; then
+    chmod 777 ./setupSFML.sh
 	./setupSFML.sh
 fi
 

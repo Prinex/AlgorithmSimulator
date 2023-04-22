@@ -19,7 +19,11 @@ SortingAlgorithms::SortingAlgorithms(int min, int max, int els, sf::RenderWindow
 		unit.setSize(sf::Vector2f(4, randomHeight));
 		unit.setFillColor(sf::Color::Black);
 		unit.setRotation(180);
-		unit.setPosition(xCurrPos, 797);
+		#if defined(__linux__)
+			unit.setPosition(xCurrPos, 700);
+		#else
+			unit.setPosition(xCurrPos, 797);
+		#endif
 		xCurrPos += 6;
 		sequence.push_back(unit);
 	}

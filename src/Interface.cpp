@@ -139,8 +139,8 @@ Interface::Interface()
     #else
         buff << std::filesystem::absolute("../design/quicksandBold.otf");
     #endif
-	buff >> fontPath;
-	
+	//buff >> fontPath;
+	fontPath = buff.str();
 	for (std::size_t i = 0; i < fontPath.size(); i++)
 	{
 		std::size_t found = fontPath.find("\\\\");

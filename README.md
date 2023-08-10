@@ -15,17 +15,17 @@
 ### Building and running the project 
 
 #### 1. Before building and running the project you first need to setup SFML which is the library used for implementing graphics. 
-To do this, run the setupSFML.sh script file which will extract the library's directory to the current path. 
+* To do this, run the setupSFML.sh script file which will extract the library's directory to the current path. 
 #### 2. To generate and build the project you will use the build.sh script file which will automatically build the project according to one of the following OS' that you use on your machine:
-	* Windows
-		* On Windows the build option of the project should be something like Visual Studio {a version number} {year version}.
-		* To build the project with a different version of Visual Studio, change the version number and year version from the build.sh script file, e.g. from `cmake .. -G "Visual Studio 17 2022"` to `cmake .. -G "Visual Studio 16 2019"`.
-	* Linux 
-		* On Linux we use Unix Makefiles as the generator of the project.
-	* macOS
-		* On macOS, again we use Makefiles as the project's generator.
+* Windows
+	* On Windows the build option of the project should be something like Visual Studio {a version number} {year version}.
+	* To build the project with a different version of Visual Studio, change the version number and year version from the build.sh script file, e.g. from `cmake .. -G "Visual Studio 17 2022"` to `cmake .. -G "Visual Studio 16 2019"`.
+* Linux 
+	* On Linux we use Unix Makefiles as the generator of the project.
+* macOS
+	* On macOS, again we use Makefiles as the project's generator.
 #### 3. To run the project without any complications, use the run.sh script file, which will run the build.sh as well for generating and building the project.
-	* On Window you can also run the project using VS {your installed version} IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS {your installed version} solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
+* On Window you can also run the project using VS {your installed version} IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS {your installed version} solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
 
 ### GUI for the Sorting Algorithms
 

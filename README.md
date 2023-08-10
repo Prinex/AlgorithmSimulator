@@ -1,11 +1,9 @@
 ![passing-win](https://img.shields.io/badge/Visual%20Studio%2017%202022%20Windows%20build-passing-green?style=plastic&logo=appveyor) ![passing-unix](https://img.shields.io/badge/Unix%20Makefiles%20Linux%20and%20macOS%20build-passing-green?style=plastic&logo=appveyor)
 
 > AlgorithmSimulator is a cross-platform project for visualizing sorting and pathfinding algorithms.
-> This project consists of two majors parts: One part of the project deals with sorting algorithms and another with pathfinding algorithms.
+> This project consists of two majors parts: One part of the project deals with sorting algorithms, and another with pathfinding algorithms.
 
-### Beforehand
-
-* You need to:
+### Beforehand, you need to:
 
 1. To have VS {your installed version} installed to generate and build the project if your machine has Windows running (of course that you can try to make it work with something else like MinGW makefiles for building and running the project).
 2. To have cmake 3.15 version or greater installed.

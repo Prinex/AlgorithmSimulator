@@ -5,7 +5,7 @@
 
 ### Beforehand, you need to:
 
-1. To have VS {your installed version} installed to generate and build the project if your machine has Windows running (of course that you can try to make it work with something else like MinGW makefiles for building and running the project).
+1. To have an installed version of Visual Studio IDE to generate and build the project if your machine has Windows running (of course that you can try to make it work with something else like MinGW makefiles for building and running the project).
 2. To have cmake 3.15 version or greater installed.
 3. To have Git Bash or Linux terminal on Windows to run the Shell script files. On Linux and macOS you can run them without any problem (Unix-like systems).
 
@@ -25,7 +25,7 @@
 #### 3. The run.sh script file is the script file which will compile the project's files
 * In this script file, the setupSFML.sh and build.sh will be called before compilation.
 * You only need to run the run.sh script file for setting up SFML, generating, and compiling the project.
-* On Window you can also run the project using your installed version of Visual Studio IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS {your installed version} solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
+* On Windows you can also run the project using your installed version of Visual Studio IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
 
 ### GUI for the Sorting Algorithms
 

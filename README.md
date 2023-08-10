@@ -18,7 +18,7 @@
 To do this, run the setupSFML.sh script file which will extract the library's directory to the current path. 
 2. To generate and build the project you will use the build.sh script file which will automatically build the project according to one of the following OS' that you use on your machine:
 	* Windows
-		* On Windows the build option of the project should be something like Visual Studio {a version number} {your installed version}.
+		* On Windows the build option of the project should be something like Visual Studio {a version number} {year version}.
 	* Linux 
 		* On Linux we use Unix Makefiles as the generator of the project.
 	* macOS

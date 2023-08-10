@@ -16,7 +16,7 @@
 * The setupSFML.sh script file will extract the library's directory to the current path. 
 #### 2. To generate and build the project, the build.sh script file will automatically build the project according to one of the following OS' that you use on your machine:
 * Windows
-	* On Windows, the build option of the project should be something like Visual Studio {a version number} {year version}.
+	* On Windows, the build option of the project is Visual Studio, which is in the following format: `cmake .. -G "Visual Studio {a version number} {year version}"`.
 	* To build the project with a different version of Visual Studio, change the version number and year version from the build.sh script file, e.g. from `cmake .. -G "Visual Studio 17 2022"` to `cmake .. -G "Visual Studio 16 2019"`.
 * Linux 
 	* On Linux, Unix Makefiles is used.

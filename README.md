@@ -24,7 +24,7 @@
 	* On macOS, again, Unix Makefiles is used.
 #### 3. The run.sh script file is the script file which will compile and run the project
 * In this script file, the setupSFML.sh and build.sh will be called before compilation.
-* You only need to run the run.sh script file for setting up SFML, generating, and compiling the project.
+* You only need to run the run.sh script file for setting up SFML, generating, compiling, and running the project.
 * On Windows you can also run the project using your installed version of Visual Studio IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
 
 ### GUI for the Sorting Algorithms

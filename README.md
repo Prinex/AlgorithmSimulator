@@ -23,7 +23,7 @@ To do this, run the setupSFML.sh script file which will extract the library's di
 		* On Linux we use Unix Makefiles as the generator of the project.
 	* macOS
 		* On macOS, again we use Makefiles as the project's generator.
-3. To run the project without any minor complications, use the run.sh script file.
+3. To run the project without any complications, use the run.sh script file.
 	* On Window you can also run the project using VS {your installed version} IDE, but before you do that you need to do the following things: run the run.sh script file, then in VS {your installed version} solution explorer right click on 'AlgorithmSimulator' project -> select 'Set as Startup Project', then finally right-click on 'ALL_BUILD' project -> select 'Build'.  
 
 ### GUI for the Sorting Algorithms

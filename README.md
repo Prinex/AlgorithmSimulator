@@ -22,7 +22,7 @@
 	* On Linux, Unix Makefiles is used.
 * macOS
 	* On macOS, again, Unix Makefiles is used.
-#### 3. The run.sh script file will compile and run the project
+#### 3. The run.sh script file will compile and run the project.
 * In this script file, the setupSFML.sh and build.sh will be called before compilation.
 * You only need to run the run.sh script file for setting up SFML, generating, compiling, and running the project.
 #### 4. On Windows, you can also compile and run the project using your installed version of Visual Studio IDE, but before you do that you need to do the following things:
